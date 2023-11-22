@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="options.css">
+  <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5"> 
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <h1 class="text-center mb-4">Opțiuni</h1>
+        <ul class="nav nav-tabs mb" id="myTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="about-tab" data-bs-toggle="tab" href="#about" role="tab">Despre</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="general-tab" data-bs-toggle="tab" href="#general" role="tab">General</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="proiecte-tab" data-bs-toggle="tab" href="#proiecte" role="tab">Proiecte</a>
+          </li>
+          <!-- <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ocpi-tab" data-bs-toggle="tab" href="#ocpi" role="tab" disabled="disabled" style="color: grey">Funcții OCPI (nefinalizat)</a>
+          </li> -->
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="custom-tab" data-bs-toggle="tab" href="#custom" role="tab">Personalizări</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="feedback-tab" data-bs-toggle="tab" href="#feedback" role="tab">Trimite Feedback</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+                <!-- TAB ZERO - ABOUT -->
+        <div class="tab-pane fade" id="about" role="tabpanel">
+          <div class="accordion" id="aboutAccordion">
+            <div class="accordion-item">
+              <div id="presentation">
+                <h2>Bine ați venit!</h2>
+                <p>Extensia Chrome Asistent TopoMind este creată pentru a vă ajuta să automatizați sarcini repetitive în platformă.</p> 
+                <p>Următoarele indicații vă vor ghida pentru o utilizare eficientă a extensiei:</p>
+                <ul>
+                    <li><strong>Navigare Manuală:</strong> Trebuie să navigați <strong style="color: black">manual</strong> către pagina unde doriți automatizarea. 
+                      Extensia <strong>nu</strong> interacționează direct cu baza de date și <strong style="color: black">nu</strong> navighează automat; 
+                      rolul său este de a facilita introducerea datelor și automatizarea pe paginile vizitate.</li>
+                    <li><strong>Activarea Funcționalităților:</strong> Bifați caseta corespunzătoare pentru a activa o funcționalitate specifică. 
+                      <strong style="color: black">Săgețile ("v") permit extinderea pentru afișarea informații lor suplimentare și, după caz, introducerea datelor necesare automatizării.</strong></li>
+                    <li><strong>Salvarea Setărilor:</strong> După selectarea funcțiilor dorite, asigurați-vă că <strong style="color: black">salvați</strong> modificările pentru a le aplica.</li>
+                    <li><strong>Reîmprospătarea Paginii:</strong> Pentru a activa modificările, reîmprospătați pagina platformei. 
+                      Aceasta este esențială pentru activarea automatizărilor selectate.</li>
+                    <li><strong>Feedback și Suport:</strong> Pentru sugestii sau raportarea anomaliiilor, folosiți secțiunea ”Trimite Feedback”.</li>
+                    <li><strong>Dezactivarea Funcțiilor:</strong> Dacă întâmpinați probleme cu o funcționalitate, dezactivați-o debifând caseta corespunzătoare.</li>
+                </ul>
+                <p style="text-align: center; color: orangered;"><strong>De asemenea, vă rog să citiți fiecare notă/avertizare pentru fiecare funcționalitate.</strong></p>
+            </div>            
+            </div>
+          </div>
+        </div>
+                <!-- TAB ONE - GENERAL -->
+          <div class="tab-pane fade" id="general" role="tabpanel">
+            <div class="accordion" id="settingsAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading1">
+                  <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                  <input type="checkbox" id="shortcuts" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Scurtături de tastatură
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    <div class="shortcut">
+                      <span class="key">ALT</span> + <span class="key">S</span> : SALVEAZĂ
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">ALT</span> + <span class="key">V</span> : VALIDEAZĂ IMOBILUL
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">ALT</span> + <span class="key">D</span> : VIZUALIZEAZĂ ACTUL
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">SHIFT</span> + <span class="key"><</span> : IMOBILUL ANTERIOR
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">SHIFT</span> + <span class="key">></span> : IMOBILUL URMĂTOR
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">ENTER</span> : CONFIRMARE (ALERT)
+                    </div>
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading2">
+                  <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                  <input type="checkbox" id="writeEtaj"class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Completare automată nr. etaje cu "1"
+                  </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Dacă câmpul "NR. ETAJE" este gol sau "0", se va completa automat cu "1".
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading3">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                    <input type="checkbox" id="writeCC3" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Suprafața totală construcții = suprafața măsurată * nr. etaje
+                  </button>
+                </h2>
+                  <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                    <div class="accordion-body">
+                      Câmpul suprafeței totale a construcției va completată cu suprafața măsurată înmulțită cu numărul de etaje.
+                    </div>
+                  </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading4">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                    <input type="checkbox" class="form-check-input me-3" id="addBNPToEmitent" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Adăugare "BNP" la emitentul actului notarial.
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Dacă emitenul actului notarial nu conține "BNP" sau alte valori similare (precum BIN, SNP, NP, etc.), se va adăuga automat.
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading5">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                    <input type="checkbox" id="quota" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Completare automată cote
+                  </button>
+                  </h2>
+                  <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                    <div class="accordion-body">
+                      Pentru înscrierile cu tipul de înregistrare corect, se vor completa automat cotele cu valoarea de "1/1".
+                    </div>
+                  </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading6">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                    <input id="deleteSectionOne" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Ștergere "1" din înscrieri, câmpul "secțiune carte funciară"
+                  </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Pentru a minimiza erorile, se va omite opțiunea de a alege secțiunea 1 din cartea funciară, la înscrieri.
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading7">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
+                    <input id="copyNcIe" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Copiere Nr. Carte -> IE
+                  </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Pentru a importa CGXML-urile în aplicație și a evita erorile, se va copia automat numărul cărții funciare în câmpul "identificator electronic".<br>
+                  <br><span class="notes"> Notă: va trebui să treceți prin fiecare imobil pentru asta. Recomand deschiderea tuturor imobilelor în cauză în tab-uri separate pentru eficiență. </span>
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading14">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14">
+                    <input id="findNc" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Căutare NC/IE multiple în aplicatie
+                  </button>
+                </h2>
+                <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="rowContainer accordion-body">
+                    <div class="project-container" data-row-type="multi">
+                      <div class="custom-row column">
+                        <select id="searchField">
+                          <option value="" selected>Câmpul în care se vor căuta numerele (tab-ul de parcele)</option>
+                          <option value="[ng-model='scopeRef.d22.val']">Nr. carte</option>
+                          <option value="[ng-model='scopeRef.d75.val']">Id. electronic</option>
+                        </select>
+                        <label for="ncList">Lista cu numerele cadastrale, separate de spațiu:</label>
+                        <textarea id="ncList" class="row-input project" placeholder="Scrieți aici numerele cadastrale..."></textarea>
+                      </div>
+                      <p class="notes"> Notă: Numerele se pot căuta <strong>doar</strong> în tab-ul de Parcele. Puteți copia numerele cadastrale din csv/excel și să le lipiți aici.</p>
+                      <p class="notes" <strong>Apăsați pe ALT + C în timp ce sunteți pe tab-ul de Parcele pentru a începe căutarea!</strong></p>
+                      <p class="warning notes" style="color: red; font-size: 110%;"> ATENȚIE: ÎN TIMP CE CĂUTAREA NUMERELOR ESTE ÎN PARCURS, VĂ ROG SĂ <strong>NU</strong> FOLOSITI CALCULATORUL/LAPTOP-UL</p>
+                    </div>
+                  </div>
+                </div>
+                <p class="notes" style="font-size: 100%"> Notă: Toate valorile completate automat pot fi modificate ulterior.</p>
+              </div>
+              <button class="btn btn-primary mt-4 saveBtn">Salvează setările</button>
+              <p class="success">Setările au fost salvate cu succes!</p>
+              <p class="error save">Setările nu au fost salvate! Vă rog să încercați din nou!</p>
+      </div>
+    </div>
+
+        <!-- TAB TWO - PROJECTS -->
+              <div class="tab-pane fade" id="proiecte" role="tabpanel">
+                <div class="accordion" id="proiecteAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header custom-header d-flex align-items-center" id="heading8">
+                      <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8">
+                      <input type="checkbox" id="adresa" class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                      Adresă imobile
+                    </button>
+                  </h2>
+                  <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#proiecteAccordion">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="multi">
+                        <div class="custom-row">
+                          <input type="checkbox" id="addy" class="main-row-checkbox">
+                          <input type="text" id="name" class="row-input project" placeholder="Numele proiectului" readonly>
+                          <input type="text" id="satname" class="row-input name" placeholder="Numele satului" readonly>
+                          <input type="number" id="postcode" class="row-input code" placeholder="Codul poștal" readonly>
+                          <div class="special checkbox-wrapper">
+                            <input id="intravilanCheck" type="checkbox" class="row-checkbox intra" data-bs-toggle="collapse">
+                            <label for="intravilanCheck" id="intravilly">Intravilan</label>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary add-project">Adaugă proiect</button>
+                        <p class="error project">Completați rândul actual înainte de a adăuga alt proiect</p>
+                        <p class="notes"> Notă: Numele proiectului (<strong>FĂRĂ "PROIECT" ÎNAINTE</strong>) trebuie să fie scris exact așa cum este în aplicație. Numele se referă la proiectul în sine, nu la UAT sau sector.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <h2 class="accordion-header custom-header d-flex align-items-center" id="heading9">
+                    <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9">
+                      <input type="checkbox"  id="bifaCoop" class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                      Bifă Zonă cooperativizată
+                    </button>
+                  </h2>
+                  <div id="collapse9" class="accordion-collapse collapse" data-bs-parent="#proiecteAccordion">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="single">
+                        <div class="custom-row">
+                          <input type="checkbox" id="bifaCoopProj" class="main-row-checkbox" data-bs-toggle="collapse">
+                          <input type="text" id="coopProj" class="row-input project name-only" placeholder="Numele proiectului" readonly>
+                       </div>
+                        <button class="btn btn-primary add-project">Adaugă proiect</button>
+                        <p class="error project">Completați rândul actual înainte de a adăuga alt proiect</p>
+                        <p class="notes"> Notă: Numele proiectului (<strong>FĂRĂ "PROIECT" ÎNAINTE</strong>) trebuie să fie scris exact așa cum este în aplicație. Numele se referă la proiectul în sine, nu la UAT sau sector.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <h2 class="accordion-header custom-header d-flex align-items-center" id="heading10">
+                    <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10">
+                      <input type="checkbox" id="bifaImpr" class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                      Bifă Imobil împrejmuit
+                    </button>
+                  </h2>
+                  <div id="collapse10" class="accordion-collapse collapse" data-bs-parent="#proiecteAccordion">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="single2">
+                        <div class="custom-row">
+                          <input type="checkbox" id="bifaImprProj" class="main-row-checkbox" data-bs-toggle="collapse">
+                          <input type="text" id="imprProj" class="row-input name-only" placeholder="Numele proiectului" readonly>
+                        </div>
+                        <button class="btn btn-primary add-project">Adaugă proiect</button>
+                        <p class="error project">Completați rândul actual înainte de a adăuga alt proiect</p>
+                        <p class="notes"> Notă: Numele proiectului (<strong>FĂRĂ "PROIECT" ÎNAINTE</strong>) trebuie să fie scris exact așa cum este în aplicație. Numele se referă la proiectul în sine, nu la UAT sau sector.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary mt-4 saveBtn">Salvează setările</button>
+                <p class="success">Setările au fost salvate cu succes!</p>
+                <p class="error save">Setările nu au fost salvate! Vă rog să încercați din nou!</p>
+              </div>
+            </div>
+
+                 <!-- TAB THREE- OCPI -->
+                 <div class="tab-pane fade" id="ocpi" role="tabpanel">
+                  <div class="accordion" id="ocpiAccordion">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header custom-header d-flex align-items-center" id="heading14">
+                        <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14">
+                          <input type="checkbox" id = "brailaCheck" class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                          Brăila
+                        </button>
+                      </h2>
+                      <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#ocpiAccordion">
+                        <div class="rowContainer accordion-body">
+                          <div class="project-container">
+                            <div class="custom-row clickableRow">
+                              <input type="checkbox" id="checkbr1" class="main-row-checkbox">
+                              <p for="checkbr1">Copiere suprafețe parcele</p>
+                            </div>
+                            <div class="custom-row clickableRow">
+                              <input type="checkbox" id="checkbr2" class="main-row-checkbox">
+                              <p for="checkbr2">Copiere suprafețe construcții</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <h2 class="accordion-header custom-header d-flex align-items-center" id="heading15">
+                        <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15">
+                          <input type="checkbox" id = "constantaCheck" class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                          Constanța
+                        </button>
+                      </h2>
+                      <div id="collapse15" class="accordion-collapse collapse" data-bs-parent="#uatAccordion">
+                        <div class="rowContainer accordion-body">
+                          <!-- Custom Row -->
+          <div class="project-container">
+                            <div class="custom-row clickableRow">
+                              <input type="checkbox" id="checkct1" class="main-row-checkbox">
+                              <p for="checkct1">Copiere suprafețe parcele</p>
+                            </div>
+                            <div class="custom-row clickableRow">
+                              <input type="checkbox" id="checkct2" class="main-row-checkbox">
+                              <p for="checkct2">Copiere suprafețe construcții (suprafața din act = suprafața măsurată)</p>
+                            </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary mt-4 saveBtn">Salvează setările</button>
+                        <p class="success">Setările au fost salvate cu succes!</p>
+                        <p class="error save">Setările nu au fost salvate! Vă rog să încercați din nou!</p>
+                      </div>
+                    </div>
+                  <!-- TAB FOUR- PERSONALIZATE  -->
+            <div class="tab-pane fade" id="custom" role="tabpanel">
+              <div class="accordion" id="customAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header custom-header d-flex align-items-center" id="heading11">
+                    <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11">
+                    <input type="checkbox" id="autoinscrieri" class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                      Înscrieri personalizate
+                    </button>
+                  </h2>
+                  <div id="collapse11" class="accordion-collapse collapse" data-bs-parent="#customAccordion">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="complex">
+                        <div class="custom-row">
+                          <input type="checkbox" id="ins" class="main-row-checkbox">
+                          <div class="left-column">
+                              <input type="text" id="actName" class="row-input project name-only required" placeholder="Nr. act" readonly required>
+                              <div class="select-column">
+                                  <select id="tipInregistrare">
+                                                  <option value="" selected>Tip inregistrare</option>
+                                                  <option value="Intabulare">Intabulare</option>
+                                                  <option value="Notare">Notare</option>
+                                                  <option value="Inscrierea posesiei">Inscrierea posesiei</option>
+                                                  <option value="Inscrierea provizorie">Inscrierea provizorie</option>
+                                                </select>
+                                                <select id="tipDrept">
+                                                  <option value="" selected>Tip drept</option>
+                                                  <option value="Proprietate">Proprietate</option>
+                                                  <option value="Administrare">Administrare</option>
+                                                  <option value="Comodat">Comodat</option>
+                                                  <option value="Concesiune">Concesiune</option>
+                                                  <option value="Folosinta">Folosinta</option>
+                                                  <option value="Folosinta speciala">Folosinta speciala</option>
+                                                  <option value="Folosinta cu titlu gratuit">Folosinta cu titlu gratuit</option>
+                                                  <option value="Habitatie">Habitatie</option>
+                                                  <option value="Inchiriere">Inchiriere</option>
+                                                  <option value="Ipoteca">Ipoteca</option>
+                                                  <option value="Ipoteca legala">Ipoteca legala</option>
+                                                  <option value="Leasing imobiliar">Leasing imobiliar</option>
+                                                  <option value="Privilegiu imobiliar">Privilegiu imobiliar</option>
+                                                  <option value="Superficie">Superficie</option>
+                                                  <option value="Servitute">Servitute</option>
+                                                  <option value="Uz">Uz</option>
+                                                  <option value="Uzufruct">Uzufruct</option>
+                                                  <option value="Uzufruct viager">Uzufruct viager</option>
+                                                </select>
+                                                <select id="modDobandire">
+                                                  <option value="" selected>Mod Dobandire</option>
+                                                  <option value="Accesiune">Accesiune</option>
+                                                  <option value="Constituire">Constituire</option>
+                                                  <option value="Construire">Construire</option>
+                                                  <option value="Conventie">Conventie</option>
+                                                  <option value="Expropriere">Expropriere</option>
+                                                  <option value="Hotarare judecatoreasca">Hotarare judecatoreasca</option>
+                                                  <option value="Iesire din indiviziune">Iesire din indiviziune</option>
+                                                  <option value="Lege">Lege</option>
+                                                  <option value="Succesiune">Succesiune</option>
+                                                  <option value="Uzucapiune">Uzucapiune</option>
+                                                  <option value="Adjudecare">Adjudecare</option>
+                                                  <option value="Reconstituire">Reconstituire</option>
+                                                </select>
+                                                <select id="section">
+                                                  <option value="">Sectiune</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                </select>
+                                              </div>
+                                            </div>
+                                            <div class="right-column">
+                                              <div class="checkbox-label">
+                                                  <input id="referaTerenul" type="checkbox" class="row-checkbox refera" checked />
+                                                  <label for="referaTerenul" id="refera" class="checkbox-text">Referă terenul</label>
+                                              </div>
+                                              <div class="checkbox-label">
+                                                <input id="poz" type="checkbox" class="row-checkbox poz">
+                                                <label for="poz" id="continuePoz" class="checkbox-text">Continuă numerotatea (P2)</label>
+                                            </div>
+                                              <input type="text" id="detalii" class="row-input ins-input name" placeholder="Detalii drept" readonly>
+                                              <input type="text" id="comment"class="row-input ins-input name" placeholder="Comentarii" readonly>
+                                              <textarea type="text" id="note" class="row-input ins-input name" placeholder="Notări" readonly></textarea>
+                                          </div>
+                                      </div>
+                        <button class="btn btn-primary add-project">Adaugă înscriere</button>
+                        <p class="error project">Scrieți numele actului și alegeți măcar o opțiune înainte de a adăuga altă înscriere</p>
+                        <p class="notes"> Notă: Numele actului trebuie să fie scris exact așa cum este în aplicație. </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h2 class="accordion-header custom-header d-flex align-items-center" id="heading12">
+                    <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12">
+                    <input type="checkbox"  class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                      Scriere automată text
+                    </button>
+                  </h2>
+                  <div id="collapse12" class="accordion-collapse collapse" data-bs-parent="#customAccordion">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="multi-w">
+                        <div class="custom-row">
+                          <input type="checkbox" id="writeValues" class="main-row-checkbox" data-bs-toggle="collapse">
+                          <select id="writeSelect">
+                            <option value="" selected>Câmpul în care se va scrie textul</option>>
+                            <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+                            <option value="[class='col-12'] [ng-model='d57.val']">Notițe parcelă</option>
+                            <option value="[class='col'] [ng-model='d47.val']">Note act</option>
+                            <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
+                            <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
+                            <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+                          </select>
+                          <input type="text" id="desiredText" class="row-input text" placeholder="Text dorit" readonly>
+                        </div>
+                        <button class="btn btn-primary add-project">Adaugă text</button>
+                        <p class="error project">Completați rândul actual înainte de a adăuga alt text</p>
+                        <p class="notes"> Notă: Această opțiune se folosește de fel când nu există deja text în câmpul respectiv.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h2 class="accordion-header custom-header d-flex align-items-center" id="heading13">
+                    <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13">
+                      <input type="checkbox"  class="selectAll form-check-input me-3" data-bs-toggle="collapse">
+                      Înlocuire automată text
+                    </button>
+                  </h2>
+                  <div id="collapse13" class="accordion-collapse collapse" data-bs-parent="#customAccordion">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="multi-m">
+                        <div class="custom-row">
+                          <input type="checkbox" id="replaceValues" class="main-row-checkbox">
+                          <select id="modif">
+                            <option value="" selected>Câmpul în care se face modificarea</option>
+                            <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+                            <option value="[class='col-12'] [ng-model='d57.val']">Notițe parcelă</option>
+                            <option value="[class='col'] [ng-model='d47.val']">Note act</option>
+                            <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
+                            <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
+                            <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+                          </select>
+                          <input type="text" id="initialT" class="row-input initialText" placeholder="Text inițial" readonly>
+                          <input type="text" id="actualT" class="row-input newText" placeholder="Text modificat" readonly>
+                        </div>
+                        <button class="btn btn-primary add-project">Adaugă text</button>
+                        <p class="error project">Completați rândul actual înainte de a adăuga alt text</p>
+                        <p class="notes"> Notă: Modificarea se poate face parțial (o parte din text) sau total (tot textul).</p>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary mt-4 saveBtn">Salvează setările</button>
+                <p class="success">Setările au fost salvate cu succes!</p>
+                <p class="error save">Setările nu au fost salvate! Vă rog să încercați din nou!</p>
+              </div>
+            </div>
+
+                  <!-- TAB FIVE - FEEDBACK -->
+          <div class="tab-pane fade" id="feedback" role="tabpanel">
+            <div class="form-container">
+              <form id="form">
+              <div class="feedback-form">
+                <label for="reason">Tip de feedback:<span class="required star">*</span></label>
+                <select id="reason" class="required" required>
+                  <option value="" selected></option>
+                  <option value="Bug">Problemă tehnică/eroare</option>
+                  <option value="Feedback">Sugestie</option>
+                  <option value="Suggestion">Altceva</option>
+                </select>
+                
+                <label for="sectionFeedback">Secțiune:<span class="required star">*</span></label>
+                <select id="sectionFeedback" class="required" required>
+                  <option value="" selected></option>
+                  <option disabled class="imp">General</option>
+                  <option value="Scurtături">Scurtături</option>
+                  <option value="Nr. etaje">Nr. etaje</option>
+                  <option value="Suprafață totală construcții">Suprafață totală construcții</option>
+                  <option value="Adăugare BNP">Adăugare "BNP"</option>
+                  <option value="Completare cote">Completare cote</option>
+                  <option value="Ștergere opțiunea secțiunea 1 din înscrieri">Ștergere opțiunea secțiunea 1 din înscrieri</option>
+                  <option value="Copiere Nr. Carte la IE">Copiere Nr. Carte la IE</option>
+                  <option disabled class="imp">Proiecte</option>
+                  <option value="Alegere sat">Alegere sat</option>
+                  <option value="Completare Nr. poștal">Completare Nr. poștal</option>
+                  <option value="Bifă zona cooperativizată">Bifă zona cooperativizată</option>
+                  <option value="Bifă imobil împrejmuit">Bifă imobil împrejmuit</option>
+                  <option disabled class="imp">Personalizări</option>
+                  <option value="Completare automată înscriere">Completare automată înscriere</option>
+                  <option value="Scriere automată text">Scriere automată text</option>
+                  <option value="Înlocuire automată text">Înlocuire automată text</option>
+                  <option value=null disabled></option>
+                  <option value="Other">Altceva</option>
+                </select>
+                
+                <label for="subject">Subiect:</label>
+                <input type="text" id="subject" class="textarea">
+                
+                <label for="details">Detalii:<span class="required star">*</span></label>
+                <textarea id="details" class="required" required></textarea>
+
+                <label for="contact">Unde vă pot contacta pentru mai multe informații:</label>
+                <input type="text" id="contact" class="textarea">
+                
+                <button type="submit">Trimite feedback</button>
+              </form>
+              </div>
+                <p class="thankYou">Mulțumesc pentru feedback-ul oferit!</p>
+                <p class="error feedback">Vă rugăm să completați toate câmpurile obligatorii</p>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../emailjs/email.min.js"></script>
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="options.js" defer></script>
+  <script src="../main.js" defer></script>
+</body>
+</html>
