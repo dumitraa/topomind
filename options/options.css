@@ -409,6 +409,11 @@ button>input[type="checkbox"] {
 }
 
 textarea {
-white-space: pre-wrap; 
-word-wrap: break-all;
+white-space: pre-wrap;
+overflow-wrap: break-word
+}
+
+#ncList {
+white-space: pre-wrap;
+overflow-wrap: break-word
 }
