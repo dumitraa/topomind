@@ -466,10 +466,7 @@ function disableQuota() {
       fillField(actualQuota, " ", false)
     });
 
-    quota.selected = true;
-    var event = new Event('change');
-    notkewldrop.dispatchEvent(event);
-    notkewldrop.focus();
+    selectOption(quota, notkewldrop)
       
     dropdown.setAttribute('disabled', 'disabled')
     initialQuota.setAttribute('disabled', 'disabled')
