@@ -132,7 +132,7 @@ function createRow(projectContainer, rowType) {
     <select id="writeSelect${nextMultiW}">
       <option value="" selected>Câmpul în care se va scrie textul</option>>
       <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
-      <option value="[class='col-12'] [ng-model='d57.val']">Notițe parcelă</option>
+      <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
       <option value="[class='col'] [ng-model='d47.val']">Note act</option>
       <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
       <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
@@ -147,7 +147,7 @@ function createRow(projectContainer, rowType) {
     <select id="modif${nextMultiM}">
       <option value="" selected>Câmpul în care se face modificarea</option>
       <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
-      <option value="[class='col-12'] [ng-model='d57.val']">Notițe parcelă</option>
+      <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
       <option value="[class='col'] [ng-model='d47.val']">Note act</option>
       <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
       <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>

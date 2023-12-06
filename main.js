@@ -454,7 +454,7 @@ async function writeQuota() {
   }
 }
 
-function disableQuota() {
+async function disableQuota() {
   var quota = document.querySelector(`select[ng-model='scopeRef.d37.val'] option[value="object:null"]`)
   let notkewldrop = document.querySelector('[ng-model="scopeRef.d37.val"]');
   let dropdown = document.querySelector('[ng-model="scopeRef.d37.val"]')
@@ -462,15 +462,17 @@ function disableQuota() {
   let actualQuota = document.querySelector('[ng-model="scopeRef.d43.val"]')
   
   if (document.querySelector("[ng-model='scopeRef.d37.val'][disabled='disabled']") == null) {
-    fillField(initialQuota, " ", false).then(() => {
+    await fillField(initialQuota, " ", false).then(() => {
       fillField(actualQuota, " ", false)
     });
 
     selectOption(quota, notkewldrop)
-      
+    
+    setTimeout(() => {
     dropdown.setAttribute('disabled', 'disabled')
     initialQuota.setAttribute('disabled', 'disabled')
     actualQuota.setAttribute('disabled', 'disabled')
+    }, 1000);
   }
 }
 
@@ -481,7 +483,6 @@ function addRowClickListener(row) {
   }
 
   row.addEventListener('click', function(e) {
-    // Exclude button clicks
     if (e.target.tagName !== 'BUTTON') {
       if (e.target.type !== 'checkbox') {
         const checkbox = this.querySelector('td input[type="checkbox"]');
