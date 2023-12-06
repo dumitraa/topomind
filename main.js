@@ -239,7 +239,7 @@ const adresaLogic = async () => {
   if (adresaData) {
     const validData = adresaData.filter(data => data !== null && data.addy)
     validData.forEach(data => {
-      writeSatAndPostalCode(data.name, data.satName, data.postcode, data.intra);  // Pass the data as argument
+      writeSatAndPostalCode(data.projectName, data.satName, data.postalCode, data.intra);  // Pass the data as argument
     }
   )}
   }
@@ -414,7 +414,11 @@ async function copyNcIe() {
   let ie = document.querySelector('[ng-disabled="d56.ro"]');
   
   if (ie && nc.value !== '' && ie.value === '') {
-    await fillField(ie, nc.value.substring(0, 6), false);
+    // Match any number string until it meets a comma, a space, or reaches the end
+    let match = nc.value.match(/[^, ]*/);
+    let substring = match ? match[0] : '';
+
+    await fillField(ie, substring, false);
     
     if (saveBtn) {
       ie.focus();
@@ -635,14 +639,17 @@ async function autoInscriere({actVal, tipInr = null, prov = false, tipDr = null,
  
    if (detaliiDr && detailsDr.value === "") {
       await fillField(detailsDr, detaliiDr, false);
+      detaliiDr.focus();
     }
  
     if (comentarii && comments.value === "") {
       await fillField(comments, comentarii, false);
+      comentarii.focus();
     }
 
     if (note && note.value === "") {
       await fillField(notes, note, false);
+      note.focus();
     }
 
     if (poz && pozitie.value === "") {
