@@ -239,7 +239,7 @@ const adresaLogic = async () => {
   if (adresaData) {
     const validData = adresaData.filter(data => data !== null && data.addy)
     validData.forEach(data => {
-      writeSatAndPostalCode(data.projectName, data.satName, data.postalCode, data.intra);  // Pass the data as argument
+      writeSatAndPostalCode(data.projectName, data.satNameAndZipCode, data.intra);  // Pass the data as argument
     }
   )}
   }
@@ -528,11 +528,15 @@ function writeCcX3() {
 
 //////////////////////////////////////////////////////////
 
-function writeSatAndPostalCode(project, county, postalCode, intra = false) {
+function writeSatAndPostalCode(project, concatCountyAndCode, intra = false) {
 
   let projectName = getProjectName();
 
   if (projectName === project) {
+    let splitAddress = concatCountyAndCode.split('/')
+    let county = splitAddress[1]
+    let postalCode = splitAddress[0]
+
     if (document.querySelector('[ng-model="d17.val"]')) {
         var countyVal = document.querySelector(`[ng-model="d14.val"] option[label="${county}"]`);
         let countyDropdown = document.querySelector('[ng-model="d14.val"]');

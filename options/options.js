@@ -459,37 +459,34 @@ function createAutoInscriereObj(row, rowIndex) {
 }
 
 
-
-
 function createAdresaObj(row, rowIndex) {
-
-  // same as createautoinscriereobj, only get the non null values
-
   const idSuffix = rowIndex === 0 ? '' : rowIndex;
-  const elem = row.querySelector(`#postcode${idSuffix}`);
+
+  const elem = row.querySelector(`#satName${idSuffix}`);
 
   if (elem) {
-  const values = {
-    addy: row.querySelector(`#addy${idSuffix}`).checked,
-    name: row.querySelector(`#projectName${idSuffix}`).value,
-    judetName: row.querySelector(`#judetName${idSuffix}`).textContent,
-    satName: row.querySelector(`#satName${idSuffix}`).textContent,
-    postalCode: row.querySelector(`#satName${idSuffix}`).value,
-    intra: row.querySelector(`#intravilanCheck${idSuffix}`).checked,
-  };
+    const values = {
+      addy: row.querySelector(`#addy${idSuffix}`).checked,
+      projectName: row.querySelector(`#projectName${idSuffix}`).value,
+      judetName: row.querySelector(`#judetName${idSuffix}`).value,
+      satNameAndZipCode: row.querySelector(`#satName${idSuffix}`).value,
+      intra: row.querySelector(`#intravilanCheck${idSuffix}`).checked,
+    };
 
-  const allEmpty = !Object.values(values).some(value => {
-    return typeof value === 'boolean' ? value : (value && value.trim() !== '');
+    const allEmpty = !Object.values(values).some(value => {
+      return typeof value === 'boolean' ? value : (value && value.trim() !== '');
+    });
+
+    if (!allEmpty) {
+      return values;
+    }
+
+    return null;
   }
-  );
-
-  if (!allEmpty) {
-    return values;
-  }
-
-  return null;
 }
-}
+
+
+
 
 function createZonaCoopObj(row, rowIndex) {
 
@@ -596,17 +593,26 @@ function saveStorage() {
     document.querySelectorAll('.tab-pane').forEach(function(tab) {
       tab.querySelectorAll('input, select, textarea').forEach(function(el) {
         let value;
+
         if (el.tagName === 'TEXTAREA') {
             value = el.value;
         } else {
             value = el.getAttribute('type') === 'checkbox' ? el.checked : el.value;
         }
-            if ((typeof value === 'string' && value.trim() !== '') || typeof value === 'boolean') {
+            if ((typeof value === 'string' && value.trim() !== '') || typeof value === 'boolean' || typeof valye === 'object') {
           if (el.getAttribute('id')) {
             storageArray.push({
               key: el.getAttribute('id'),
               value: value
             });
+          } else if (el.getAttribute('class') === 'sat-dropdown') {
+            const satNameOptions = Array.from(el.querySelectorAll('option')).map(option => {
+              return {
+                key: option.value,
+                value: option.textContent
+              }
+            });
+            storageArray = storageArray.concat(satNameOptions);
           } else {
             storageArray.push({
               key: createXPathFromElement(el),
@@ -655,7 +661,14 @@ tabLinks.forEach((tabLink) => {
     e.preventDefault();
     const tabID = e.target.getAttribute('href').substring(1);
     const tabElement = document.getElementById(tabID);
-    if (tabElement) refreshStorage();
+    if (tabElement) {
+      refreshStorage();
+    }
+    if (tabID === 'proiecte') {
+        loadData().then(() => {
+          refreshStorage();
+        });
+    };
   });
 });
 
@@ -674,6 +687,9 @@ document.querySelectorAll('.saveBtn').forEach((button) => {
 });
 
 document.addEventListener("DOMContentLoaded", refreshStorage);
+document.addEventListener("DOMContentLoaded", loadData);
+
+
 function checkFirstVisit() {
   chrome.storage.local.get('hasVisited', function(result) {
       if (result.hasVisited) {
@@ -743,10 +759,29 @@ document.getElementById('ncList').addEventListener('paste', function(e) {
 });
 
 
+// Select all `select` elements
+const selects = document.querySelectorAll('select');
+
+// Function to update the `selected` attribute of an option
+function updateSelectedOption(event) {
+    // Remove `selected` attribute from all options
+    event.target.querySelectorAll('option').forEach(opt => {
+        opt.removeAttribute('selected');
+    });
+
+    // Add `selected` attribute to the chosen option
+    event.target.options[event.target.selectedIndex].setAttribute('selected', true);
+}
+
+// Add event listeners to all `select` elements
+selects.forEach(select => {
+    select.addEventListener('change', updateSelectedOption);
+});
 
 
 /////////////////////////
 async function loadData() {
+  console.log('loadData called');
   try {
     const response = await fetch('regions.json');
     const locations = await response.json();
@@ -769,7 +804,6 @@ function initializeDropdowns(locations) {
 
   const judetDropdowns = document.querySelectorAll('.judet-dropdown');
   judetDropdowns.forEach(judetDropdown => {
-    // create judet options
     sortedJudets.forEach(judet => {
       const option = document.createElement('option');
       option.value = judet;
@@ -778,39 +812,50 @@ function initializeDropdowns(locations) {
     });
   });
 
-
-  document.body.addEventListener('change', function(event) {
+  judetDropdowns.forEach(judetDropdown => {
+  judetDropdown.addEventListener('change', function(event) {
+    console.log('judetDropdown change event')
     const judetDropdown = event.target.closest('.judet-dropdown');
     if (!judetDropdown) return;
+    populateSatDropdown(judetDropdown, dataByJudet);
+  });
+  });
 
-    const rowContainer = judetDropdown.closest('.custom-row');
-    const numeDropdown = rowContainer.querySelector('.sat-dropdown');
-
-    numeDropdown.innerHTML = '';
-    const selectedJudet = judetDropdown.value;
-    const numeData = dataByJudet[selectedJudet];
-
-    // Create a default option
-    const defaultOption = document.createElement('option');
-    defaultOption.value = "";
-    defaultOption.selected = true;
-    defaultOption.disabled = true;
-    defaultOption.textContent = "Sat/Localitate";
-    // Append the default option to the dropdown
-    numeDropdown.appendChild(defaultOption);
-
-    const sortedNumeData = numeData.sort((a, b) => a.nume.localeCompare(b.nume));
-
-    sortedNumeData.forEach(({ nume, zip }) => {
-      const option = document.createElement('option');
-      option.value = zip;
-      option.textContent = nume;
-      numeDropdown.appendChild(option);
-    });
+  judetDropdowns.forEach(judetDropdown => {
+    populateSatDropdown(judetDropdown, dataByJudet);
   });
 
   judetDropdowns.forEach(judetDropdown => {
     judetDropdown.dispatchEvent(new Event('change'));
+  });
+}
+
+function populateSatDropdown(judetDropdown, dataByJudet) {
+
+  const rowContainer = judetDropdown.closest('.custom-row');
+  const numeDropdown = rowContainer.querySelector('.sat-dropdown');
+
+  numeDropdown.innerHTML = '';
+  const selectedJudet = judetDropdown.value;
+  const numeData = dataByJudet[selectedJudet];
+  const shouldSelectDefaultOption = !numeDropdown.querySelector('option[selected]:not([disabled])');
+
+  // Create a default option
+  const defaultOption = document.createElement('option');
+  defaultOption.value = "";
+  defaultOption.selected = shouldSelectDefaultOption;
+  defaultOption.disabled = true;
+  defaultOption.textContent = "Sat/Localitate";
+  // Append the default option to the dropdown
+  numeDropdown.appendChild(defaultOption);
+
+  const sortedNumeData = numeData.sort((a, b) => a.nume.localeCompare(b.nume));
+
+  sortedNumeData.forEach(({ nume, zip }) => {
+    const option = document.createElement('option');
+    option.value = zip + "/" + nume;
+    option.textContent = nume;
+    numeDropdown.appendChild(option);
   });
 }
 
