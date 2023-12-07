@@ -472,7 +472,7 @@ function createAdresaObj(row, rowIndex) {
   const values = {
     addy: row.querySelector(`#addy${idSuffix}`).checked,
     name: row.querySelector(`#projectName${idSuffix}`).value,
-    judetName: row.querySelector(`#judetName${idSuffix}`).value,
+    judetName: row.querySelector(`#judetName${idSuffix}`).textContent,
     satName: row.querySelector(`#satName${idSuffix}`).textContent,
     postalCode: row.querySelector(`#satName${idSuffix}`).value,
     intra: row.querySelector(`#intravilanCheck${idSuffix}`).checked,
