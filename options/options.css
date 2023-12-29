@@ -187,6 +187,10 @@ select option[disabled] {
   cursor: text;
 }
 
+input, textarea, select {
+  background-color: white;
+}
+
 .add-project {
   margin: 10px;
 }
