@@ -417,8 +417,3 @@ overflow-wrap: break-word
 white-space: pre-wrap;
 overflow-wrap: break-word
 }
-
-.judet-dropdown,
-.sat-dropdown {
-  width: 30%;
-}

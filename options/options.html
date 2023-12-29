@@ -163,8 +163,8 @@
                   </button>
                 </h2>
                 <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                  <div class="mainContainer accordion-body">
-                    <div class="row-container" data-row-type="multi">
+                  <div class="rowContainer accordion-body">
+                    <div class="project-container" data-row-type="multi">
                       <div class="custom-row column">
                         <select id="searchField">
                           <option value="" selected>Câmpul în care se vor căuta numerele (tab-ul de parcele)</option>
@@ -199,23 +199,19 @@
                     </button>
                   </h2>
                   <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#proiecteAccordion">
-                    <div class="mainContainer accordion-body" id="adresaContainer">
-                      <div class="row-container" data-row-type="multi">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="multi">
                         <div class="custom-row">
                           <input type="checkbox" id="addy" class="main-row-checkbox">
-                          <input type="text" id="projectName" class="row-input project" placeholder="Numele proiectului" readonly>
-                          <select id="judetName" class="judet-dropdown">
-                            <option value="" disabled selected>Judet</option>
-                          </select>
-                          <select id="satName" class="sat-dropdown">
-                            <option value="" disabled selected>Alegeti judetul</option>
-                            <select>                          
+                          <input type="text" id="name" class="row-input project" placeholder="Numele proiectului" readonly>
+                          <input type="text" id="satname" class="row-input name" placeholder="Numele satului" readonly>
+                          <input type="number" id="postcode" class="row-input code" placeholder="Codul poștal" readonly>
                           <div class="special checkbox-wrapper">
                             <input id="intravilanCheck" type="checkbox" class="row-checkbox intra" data-bs-toggle="collapse">
                             <label for="intravilanCheck" id="intravilly">Intravilan</label>
                           </div>
                         </div>
-                        <button class="btn btn-primary add-row">Adaugă proiect</button>
+                        <button class="btn btn-primary add-project">Adaugă proiect</button>
                         <p class="error project">Completați rândul actual înainte de a adăuga alt proiect</p>
                         <p class="notes"> Notă: Numele proiectului (<strong>FĂRĂ "PROIECT" ÎNAINTE</strong>) trebuie să fie scris exact așa cum este în aplicație. Numele se referă la proiectul în sine, nu la UAT sau sector.</p>
                       </div>
@@ -228,13 +224,13 @@
                     </button>
                   </h2>
                   <div id="collapse9" class="accordion-collapse collapse" data-bs-parent="#proiecteAccordion">
-                    <div class="mainContainer accordion-body">
-                      <div class="row-container" data-row-type="single">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="single">
                         <div class="custom-row">
                           <input type="checkbox" id="bifaCoopProj" class="main-row-checkbox" data-bs-toggle="collapse">
                           <input type="text" id="coopProj" class="row-input project name-only" placeholder="Numele proiectului" readonly>
                        </div>
-                        <button class="btn btn-primary add-row">Adaugă proiect</button>
+                        <button class="btn btn-primary add-project">Adaugă proiect</button>
                         <p class="error project">Completați rândul actual înainte de a adăuga alt proiect</p>
                         <p class="notes"> Notă: Numele proiectului (<strong>FĂRĂ "PROIECT" ÎNAINTE</strong>) trebuie să fie scris exact așa cum este în aplicație. Numele se referă la proiectul în sine, nu la UAT sau sector.</p>
                       </div>
@@ -247,13 +243,13 @@
                     </button>
                   </h2>
                   <div id="collapse10" class="accordion-collapse collapse" data-bs-parent="#proiecteAccordion">
-                    <div class="mainContainer accordion-body">
-                      <div class="row-container" data-row-type="single2">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="single2">
                         <div class="custom-row">
                           <input type="checkbox" id="bifaImprProj" class="main-row-checkbox" data-bs-toggle="collapse">
                           <input type="text" id="imprProj" class="row-input name-only" placeholder="Numele proiectului" readonly>
                         </div>
-                        <button class="btn btn-primary add-row">Adaugă proiect</button>
+                        <button class="btn btn-primary add-project">Adaugă proiect</button>
                         <p class="error project">Completați rândul actual înainte de a adăuga alt proiect</p>
                         <p class="notes"> Notă: Numele proiectului (<strong>FĂRĂ "PROIECT" ÎNAINTE</strong>) trebuie să fie scris exact așa cum este în aplicație. Numele se referă la proiectul în sine, nu la UAT sau sector.</p>
                       </div>
@@ -277,8 +273,8 @@
                         </button>
                       </h2>
                       <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#ocpiAccordion">
-                        <div class="mainContainer accordion-body">
-                          <div class="row-container">
+                        <div class="rowContainer accordion-body">
+                          <div class="project-container">
                             <div class="custom-row clickableRow">
                               <input type="checkbox" id="checkbr1" class="main-row-checkbox">
                               <p for="checkbr1">Copiere suprafețe parcele</p>
@@ -297,9 +293,9 @@
                         </button>
                       </h2>
                       <div id="collapse15" class="accordion-collapse collapse" data-bs-parent="#uatAccordion">
-                        <div class="mainContainer accordion-body">
+                        <div class="rowContainer accordion-body">
                           <!-- Custom Row -->
-          <div class="row-container">
+          <div class="project-container">
                             <div class="custom-row clickableRow">
                               <input type="checkbox" id="checkct1" class="main-row-checkbox">
                               <p for="checkct1">Copiere suprafețe parcele</p>
@@ -328,8 +324,8 @@
                     </button>
                   </h2>
                   <div id="collapse11" class="accordion-collapse collapse" data-bs-parent="#customAccordion">
-                    <div class="mainContainer accordion-body">
-                      <div class="row-container" data-row-type="complex">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="complex">
                         <div class="custom-row">
                           <input type="checkbox" id="ins" class="main-row-checkbox">
                           <div class="left-column">
@@ -399,7 +395,7 @@
                                               <textarea type="text" id="note" class="row-input ins-input name" placeholder="Notări" readonly></textarea>
                                           </div>
                                       </div>
-                        <button class="btn btn-primary add-row">Adaugă înscriere</button>
+                        <button class="btn btn-primary add-project">Adaugă înscriere</button>
                         <p class="error project">Scrieți numele actului și alegeți măcar o opțiune înainte de a adăuga altă înscriere</p>
                         <p class="notes"> Notă: Numele actului trebuie să fie scris exact așa cum este în aplicație. </p>
                       </div>
@@ -413,8 +409,8 @@
                     </button>
                   </h2>
                   <div id="collapse12" class="accordion-collapse collapse" data-bs-parent="#customAccordion">
-                    <div class="mainContainer accordion-body">
-                      <div class="row-container" data-row-type="multi-w">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="multi-w">
                         <div class="custom-row">
                           <input type="checkbox" id="writeValues" class="main-row-checkbox" data-bs-toggle="collapse">
                           <select id="writeSelect">
@@ -428,7 +424,7 @@
                           </select>
                           <input type="text" id="desiredText" class="row-input text" placeholder="Text dorit" readonly>
                         </div>
-                        <button class="btn btn-primary add-row">Adaugă text</button>
+                        <button class="btn btn-primary add-project">Adaugă text</button>
                         <p class="error project">Completați rândul actual înainte de a adăuga alt text</p>
                         <p class="notes"> Notă: Această opțiune se folosește de fel când nu există deja text în câmpul respectiv.</p>
                       </div>
@@ -442,8 +438,8 @@
                     </button>
                   </h2>
                   <div id="collapse13" class="accordion-collapse collapse" data-bs-parent="#customAccordion">
-                    <div class="mainContainer accordion-body">
-                      <div class="row-container" data-row-type="multi-m">
+                    <div class="rowContainer accordion-body">
+                      <div class="project-container" data-row-type="multi-m">
                         <div class="custom-row">
                           <input type="checkbox" id="replaceValues" class="main-row-checkbox">
                           <select id="modif">
@@ -458,7 +454,7 @@
                           <input type="text" id="initialT" class="row-input initialText" placeholder="Text inițial" readonly>
                           <input type="text" id="actualT" class="row-input newText" placeholder="Text modificat" readonly>
                         </div>
-                        <button class="btn btn-primary add-row">Adaugă text</button>
+                        <button class="btn btn-primary add-project">Adaugă text</button>
                         <p class="error project">Completați rândul actual înainte de a adăuga alt text</p>
                         <p class="notes"> Notă: Modificarea se poate face parțial (o parte din text) sau total (tot textul).</p>
 
@@ -498,6 +494,7 @@
                   <option value="Ștergere opțiunea secțiunea 1 din înscrieri">Ștergere opțiunea secțiunea 1 din înscrieri</option>
                   <option value="Copiere Nr. Carte la IE">Copiere Nr. Carte la IE</option>
                   <option disabled class="imp">Proiecte</option>
+                  <option value="Alegere sat">Alegere sat</option>
                   <option value="Completare Nr. poștal">Completare Nr. poștal</option>
                   <option value="Bifă zona cooperativizată">Bifă zona cooperativizată</option>
                   <option value="Bifă imobil împrejmuit">Bifă imobil împrejmuit</option>

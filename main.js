@@ -239,7 +239,7 @@ const adresaLogic = async () => {
   if (adresaData) {
     const validData = adresaData.filter(data => data !== null && data.addy)
     validData.forEach(data => {
-      writeSatAndPostalCode(data.projectName, data.satNameAndZipCode, data.intra);  // Pass the data as argument
+      writeSatAndPostalCode(data.name, data.satName, data.postcode, data.intra);  // Pass the data as argument
     }
   )}
   }
@@ -427,7 +427,7 @@ async function copyNcIe() {
 }
 
 async function writeQuota() {
-  var tipnull = document.querySelector(`select[ng-model='scopeRef.d7.val'] option[value="object:null"]`)
+  // var tipnull = document.querySelector(`select[ng-model='scopeRef.d7.val'] option[value="object:null"]`)
   let proprietate = document.querySelector("option[label='Proprietate']")
   let uzu = document.querySelector("option[label='Uzufruct']")
   var quota = document.querySelector("option[label='Cota fractionara']");
@@ -453,32 +453,32 @@ async function writeQuota() {
     }
 
   }
-  else if ((!proprietate.selected || !uzu.selected) && !tipnull.selected) {
-   disableQuota();
-  }
+  // else if ((!proprietate.selected || !uzu.selected) && !tipnull.selected) {
+  //  disableQuota();
+  // }
 }
 
-async function disableQuota() {
-  var quota = document.querySelector(`select[ng-model='scopeRef.d37.val'] option[value="object:null"]`)
-  let notkewldrop = document.querySelector('[ng-model="scopeRef.d37.val"]');
-  let dropdown = document.querySelector('[ng-model="scopeRef.d37.val"]')
-  let initialQuota = document.querySelector('[ng-model="scopeRef.d40.val"]')
-  let actualQuota = document.querySelector('[ng-model="scopeRef.d43.val"]')
+// async function disableQuota() {
+//   var quota = document.querySelector(`select[ng-model='scopeRef.d37.val'] option[value="object:null"]`)
+//   let notkewldrop = document.querySelector('[ng-model="scopeRef.d37.val"]');
+//   let dropdown = document.querySelector('[ng-model="scopeRef.d37.val"]')
+//   let initialQuota = document.querySelector('[ng-model="scopeRef.d40.val"]')
+//   let actualQuota = document.querySelector('[ng-model="scopeRef.d43.val"]')
   
-  if (document.querySelector("[ng-model='scopeRef.d37.val'][disabled='disabled']") == null) {
-    await fillField(initialQuota, " ", false).then(() => {
-      fillField(actualQuota, " ", false)
-    });
+//   if (document.querySelector("[ng-model='scopeRef.d37.val'][disabled='disabled']") == null) {
+//     await fillField(initialQuota, " ", false).then(() => {
+//       fillField(actualQuota, " ", false)
+//     });
 
-    selectOption(quota, notkewldrop)
+//     selectOption(quota, notkewldrop)
     
-    setTimeout(() => {
-    dropdown.setAttribute('disabled', 'disabled')
-    initialQuota.setAttribute('disabled', 'disabled')
-    actualQuota.setAttribute('disabled', 'disabled')
-    }, 1000);
-  }
-}
+//     setTimeout(() => {
+//     dropdown.setAttribute('disabled', 'disabled')
+//     initialQuota.setAttribute('disabled', 'disabled')
+//     actualQuota.setAttribute('disabled', 'disabled')
+//     }, 1000);
+//   }
+// }
 
 function addRowClickListener(row) {
   const checkbox = row.querySelector('td input[type="checkbox"]');
@@ -528,15 +528,11 @@ function writeCcX3() {
 
 //////////////////////////////////////////////////////////
 
-function writeSatAndPostalCode(project, concatCountyAndCode, intra = false) {
+function writeSatAndPostalCode(project, county, postalCode, intra = false) {
 
   let projectName = getProjectName();
 
   if (projectName === project) {
-    let splitAddress = concatCountyAndCode.split('/')
-    let county = splitAddress[1]
-    let postalCode = splitAddress[0]
-
     if (document.querySelector('[ng-model="d17.val"]')) {
         var countyVal = document.querySelector(`[ng-model="d14.val"] option[label="${county}"]`);
         let countyDropdown = document.querySelector('[ng-model="d14.val"]');
@@ -621,9 +617,9 @@ async function autoInscriere({actVal, tipInr = null, prov = false, tipDr = null,
   let sectionVal = section ? document.querySelector(`[ng-model="scopeRef.d32.val"] option[label="${section}"]`) : null
   let sectionDrop = document.querySelector('[ng-model="scopeRef.d32.val"]')
  
-  detailsDr = document.querySelector('[ng-model="scopeRef.d13.val"]')
-  comments = document.querySelector('[ng-model="scopeRef.d56.val"]')
-  note = document.querySelector('[ng-model="scopeRef.d53.val"]')
+  let detailsDr = document.querySelector('[ng-model="scopeRef.d13.val"]')
+  let comments = document.querySelector('[ng-model="scopeRef.d56.val"]')
+  let notes = document.querySelector('[ng-model="scopeRef.d53.val"]')
  
   nullSelected = document.querySelector(`[ng-model="scopeRef.d4.val"] option[value="object:null"]`).selected
   
@@ -643,17 +639,17 @@ async function autoInscriere({actVal, tipInr = null, prov = false, tipDr = null,
  
    if (detaliiDr && detailsDr.value === "") {
       await fillField(detailsDr, detaliiDr, false);
-      detaliiDr.focus();
+      detailsDr.focus()
     }
  
     if (comentarii && comments.value === "") {
       await fillField(comments, comentarii, false);
-      comentarii.focus();
+      comments.focus()
     }
 
-    if (note && note.value === "") {
+    if (note && notes.value === "") {
       await fillField(notes, note, false);
-      note.focus();
+      note.focus()
     }
 
     if (poz && pozitie.value === "") {
@@ -666,6 +662,7 @@ async function autoInscriere({actVal, tipInr = null, prov = false, tipDr = null,
      }
      let pozVal = (parseInt(goodPoz, 10) + 1).toString()
      await fillField(pozitie, pozVal, false)
+     pozitie.focus()
      }
 
     try {

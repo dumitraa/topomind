@@ -1,0 +1,281 @@
+
+.form-control-sm {
+    border-radius: 20px;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    border-radius: 20px;
+}
+
+.table-light {
+  --bs-table-bg: none;
+}
+
+/* Odd Rows Styling */
+
+
+input[type="checkbox" i] {
+    border-radius: 15px;
+}
+
+input[type=checkbox], input[type=radio] {
+    border-radius: 15px;
+}
+
+.ui-notification {
+    border-radius: 20px;
+}
+
+.form-select {
+    border-radius: 50px;
+    text-align: center;
+}
+
+.select {
+    border-radius: 20px;
+}
+
+input:not[.input-group-sm>.custom-select, .input-group-sm>.form-control, .input-group-sm>.input-group-prepend>.input-group-text] {
+    text-align: center;
+    border-radius: 20px!important;
+}
+
+input {
+    text-align: center;
+}
+
+.filter, .filter.form-control.ng-pristine.ng-valid.ng-empty.ng-touched {
+    border-radius: 20px;
+}
+
+.input-group-sm>.btn, .input-group-sm>.form-control, .input-group-sm>.form-select, .input-group-sm>.input-group-text {
+    border-radius: 20px;
+}
+
+
+.input-group-sm>.custom-select, .input-group-sm>.form-control, .input-group-sm>.input-group-prepend>.input-group-text {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.input-group-sm>.input-group-append>.input-group-text {
+   border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+[type="checkbox"] {
+    color: rgb(127, 40, 153);
+}
+
+[ng-model="d37.val"] {
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">"
+}
+
+.breadcrumb .breadcrumb-item:after {
+	content: ">";
+}
+
+.nav-line-tabs .nav-item .nav-link.active, .nav-line-tabs .nav-item .nav-link:hover:not(.disabled), .nav-line-tabs .nav-item.show .nav-link
+{
+    bordero: 0;
+    transition: color .2s ease, background-color .2s ease;
+}
+
+th {
+    text-align: center;
+}
+
+button, a, button:hover, a:hover, .btn.btn-primary, .btn.btn-danger, .btn.btn.btn-primary:hover, .btn.btn-warning, .btn.btn-primary:hover:not(.btn-active), .btn.btn-success, .btn.btn-primary:hover, 
+.btn.btn-warning:hover, .btn.btn-success:hover, .btn.btn-danger:hover, .btn-check:active+.btn.btn-warning, .btn-check:checked+.btn.btn-warning, .btn.btn-warning.active, .btn.btn-warning.show, 
+.btn.btn-warning:active:not(.btn-active), .btn.btn-warning:focus:not(.btn-active), .btn.btn-warning:hover:not(.btn-active), .btn-check:active+.btn.btn-primary, .btn-check:checked+.btn.btn-primary, 
+.btn.btn-primary.active, .btn.btn-primary.show, .btn.btn-primary:active:not(.btn-active), .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .show>.btn.btn-primary, 
+.show>.btn.btn-warning, .btn-check:active+.btn.btn-danger, .btn-check:checked+.btn.btn-danger, .btn.btn-danger.active, .btn.btn-danger.show, .btn.btn-danger:active:not(.btn-active), 
+.btn.btn-danger:focus:not(.btn-active), .btn.btn-danger:hover:not(.btn-active), .show>.btn.btn-danger, .btn.btn-info, .btn.btn-info:hover, .btn-check:active+.btn.btn-info, .btn-check:checked+.btn.btn-info, 
+.btn.btn-info.active, .btn.btn-info.show, .btn.btn-info:active:not(.btn-active), .btn.btn-info:focus:not(.btn-active), .btn.btn-info:hover:not(.btn-active), .show>.btn.btn-info,.btn-check:active+.btn.btn-secondary, 
+.btn-check:checked+.btn.btn-secondary, .btn.btn-secondary.active, .btn.btn-secondary.show, .btn.btn-secondary:active:not(.btn-active), .btn.btn-secondary:focus:not(.btn-active), 
+.btn.btn-secondary:hover:not(.btn-active), .show>.btn.btn-secondary, btn.btn-secondary, .btn.btn-secondary:hover, .btn-check:active+.btn.btn-success, .btn-check:checked+.btn.btn-success, 
+.btn.btn-success.active, .btn.btn-success.show, .btn.btn-success:active:not(.btn-active), .btn.btn-success:focus:not(.btn-active), .btn.btn-success:hover:not(.btn-active), .show>.btn.btn-success  {
+    background-color: transparent!important;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 13px!important;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #0f0f16; /* Light text color for contrast */
+}
+
+body {
+    box-sizing: border-box;
+    font-family: 'Roboto Mono';
+    font-weight: 300;
+}
+
+:root {
+    --bs-primary: #ff0080; /* Neon rgb(127, 40, 153) */
+    --bs-success: #4bffa5; /* Bright green */
+    --bs-info: #1a1a2e; /* Dark background */
+    --bs-warning: #ffd700; /* Gold */
+    --bs-danger: #ff0033; /* Bright red */
+    --bs-light: #262335; /* Lighter shade of dark */
+    --bs-dark: #0f0f16; /* Very dark shade */
+    --bs-white: #e0e0e0; /* Light text color */
+    --bs-black: #000000; /* Black */
+}
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080;
+    }
+    50% {
+        text-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080;
+    }
+}
+
+/* Adding a synthwave glow effect */
+a {
+    color: var(--bs-primary);
+    text-shadow: 0 0 1px var(--bs-primary), 0 0 1px var(--bs-primary), 0 0 5px var(--bs-primary);
+    transition: text-shadow 0.3s ease; /* Smooth transition for the glow effect */
+}
+
+a:hover {
+    /* Apply the glow animation on hover */
+    animation: glow 3s infinite;
+    transition: text-shadow 0.3s ease;
+}
+
+/* Style adjustments for buttons or interactive elements */
+button {
+    background-color: transparent;
+    border: none;
+    color: var(--bs-white);
+    text-shadow: 0 0 5px var(--bs-primary);
+    box-shadow: 0 0 10px var(--bs-primary), 0 0 20px var(--bs-primary);
+}
+
+:root {
+    /* Synthwave-inspired color scheme */
+    --bs-light-primary: #ff7597; /* Soft neon rgb(127, 40, 153) */
+    --bs-active-primary: #cc0066; /* Bright neon rgb(127, 40, 153) */
+    --bs-light-success: #4bffa5; /* Soft green */
+    --bs-active-success: #00ff9f; /* Bright neon green */
+    --bs-light-info: #6a7fdb; /* Lighter blue */
+    --bs-active-info: #4b0082; /* Indigo (reminiscent of neon purple) */
+    --bs-light-warning: #ffc085; /* Soft orange */
+    --bs-active-warning: #ff8c00; /* Bright orange */
+    --bs-light-danger: #ff7b9c; /* Soft red */
+    --bs-active-danger: #ff0033; /* Bright neon red */
+    --bs-light-dark: #262335; /* Lighter dark shade */
+    --bs-active-dark: #0f0f16; /* Very dark shade for contrast */
+    --bs-xs: 0;
+    --bs-sm: 576px;
+    --bs-md: 768px;
+    --bs-lg: 992px;
+    --bs-xl: 1200px;
+    --bs-xxl: 1400px;
+}
+
+.ui-notification.info.clickable {
+    background-color: rgb(127, 40, 153);
+}
+
+[ng-click="::popupViewScope.modalInstance.dismiss()"] {
+    border-radius: 50px;
+}
+
+.navbar.navbar-expand-lg.navbar-dark.fixed-top {
+border-bottom: 4px solid #ff0080!important
+}
+
+.fa {
+    color: rgb(127, 40, 153)!important;
+}
+
+[type='checkbox'] {
+    accent-color: rgb(127, 40, 153);
+}
+
+.text-success {
+    color: #4bffa5!important; /* Bright neon green */
+}
+
+.text-danger {
+    color: #ff0033!important; /* Vibrant neon red */
+}
+
+.text-warning {
+    color: #ff8c00!important; /* Neon orange */
+}
+
+/* Input and Select Styles */
+textarea, input, select {
+    border: 1px solid #c40053!important; /* Neon rgb(127, 40, 153) border */
+    padding: 10px!important;
+    outline: none!important; /* Remove default focus outline */
+    transition: border-color 0.3s, box-shadow 0.3s!important;
+}
+
+textarea:focus, input:focus, select:focus {
+    border-color: #00dffc!important; /* Bright neon blue for focus */
+    box-shadow: 0 0 8px #00dffc!important; /* Glow effect on focus */
+}
+
+/* Table Styles */
+table {
+    width: 100%!important;
+    border-collapse: collapse!important;
+    background-color: #1a1a2e!important; /* Dark background for table */
+    font-weight: 700;
+}
+
+table th, table td {
+    padding: 10px!important;
+    text-align: left!important;
+}
+
+table th {
+    background-color: #e0e0ec!important; /* Lighter header background for contrast */
+}
+
+table tr:nth-child(even) {
+    background-color: #e8e8f3!important; /* Lighter shade for even rows */
+}
+
+table tr:nth-child(odd) {
+    background-color: #f0f0f5!important; /* Slightly darker shade for odd rows */
+}
+
+
+table tr:hover {
+    background-color: #d0d0da!important; /* Slightly different shade on hover for visibility */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+input-group-prepend {
+        border: 1px solid #ff0080!important; /* Neon rgb(127, 40, 153) border */
+}
+
+/* Base Styles for Table Rows */
+tbody tr {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover Effect with Glow Animation */
+tbody tr:hover {
+    background-color: #262335; /* Slightly different background color on hover */
+    box-shadow: 0 0 10px #00dffc, 0 0 20px #00dffc; /* Neon blue glow */
+    z-index: 1;
+    position: relative;
+    
+}
+

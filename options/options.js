@@ -93,10 +93,10 @@ document.addEventListener('change', function(event) {
 });
 
 
-function getNextID(prefix, rowContainer) {
+function getNextID(prefix, projectContainer) {
   let highestID = 0;
 
-  const elements = rowContainer.querySelectorAll(`[id^="${prefix}"]`);
+  const elements = projectContainer.querySelectorAll(`[id^="${prefix}"]`);
 
   elements.forEach(element => {
     const currentID = parseInt(element.id.replace(prefix, ''), 10);
@@ -108,32 +108,28 @@ function getNextID(prefix, rowContainer) {
   return highestID + 1;
 }
 
-function createRow(rowContainer, rowType) {
+function createRow(projectContainer, rowType) {
 
   const newRow = document.createElement('div');
   newRow.classList.add('custom-row');
 
   if (rowType === "multi") {
-    let nextId = getNextID('addy', rowContainer);
+    let nextMulti = getNextID('addy', projectContainer);
     newRow.innerHTML = `
-    <input type="checkbox" id="addy${nextId}"class="main-row-checkbox">
-    <input type="text" id="projectName${nextId}" class="row-input project" placeholder="Numele proiectului" readonly>
-    <select id="judetName${nextId}" class="judet-dropdown">
-    <option value="" disabled selected>Judet</option>
-    </select>
-    <select id="satName${nextId}" class="sat-dropdown">
-    <option value="" disabled selected>Localitate/Sat</option>
-    <select>
+    <input type="checkbox" id="addy${nextMulti}"class="main-row-checkbox">
+    <input type="text" id="name${nextMulti}" class="row-input project" placeholder="Numele proiectului" readonly>
+    <input type="text" id="satname${nextMulti}" class="row-input name" placeholder="Numele satului" readonly>
+    <input type="number" id="postcode${nextMulti}" class="row-input code" placeholder="Codul poștal" readonly>
     <div class="special checkbox-wrapper">
-      <input id="intravilanCheck${nextId}" type="checkbox" class="row-checkbox intra">
-      <label for="intravilanCheck${nextId}" id="intravilly${nextId}">Intravilan</label>
+      <input id="intravilanCheck${nextMulti}" type="checkbox" class="row-checkbox intra">
+      <label for="intravilanCheck${nextMulti}" id="intravilly${nextMulti}">Intravilan</label>
     </div>
   `
   } else if (rowType === "multi-w") {
-    let nextId = getNextID('writeValues', rowContainer);
+    let nextMultiW = getNextID('writeValues', projectContainer);
     newRow.innerHTML = `
-    <input type="checkbox" id="writeValues${nextId}" class="main-row-checkbox">
-    <select id="writeSelect${nextId}">
+    <input type="checkbox" id="writeValues${nextMultiW}" class="main-row-checkbox">
+    <select id="writeSelect${nextMultiW}">
       <option value="" selected>Câmpul în care se va scrie textul</option>>
       <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
       <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
@@ -142,13 +138,13 @@ function createRow(rowContainer, rowType) {
       <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
       <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
     </select>
-    <input type="text" id="desiredText${nextId}" class="row-input text" placeholder="Text dorit" readonly>
+    <input type="text" id="desiredText${nextMultiW}" class="row-input text" placeholder="Text dorit" readonly>
     `
   } else if (rowType === "multi-m") {
-    let nextId = getNextID('replaceValues', rowContainer);
+    let nextMultiM = getNextID('replaceValues', projectContainer);
     newRow.innerHTML = `                          
-    <input type="checkbox" id="replaceValues${nextId}" class="main-row-checkbox">
-    <select id="modif${nextId}">
+    <input type="checkbox" id="replaceValues${nextMultiM}" class="main-row-checkbox">
+    <select id="modif${nextMultiM}">
       <option value="" selected>Câmpul în care se face modificarea</option>
       <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
       <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
@@ -157,36 +153,36 @@ function createRow(rowContainer, rowType) {
       <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
       <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
     </select>
-    <input type="text" id="initialT${nextId}" class="row-input initialText" placeholder="Text inițial" readonly>
-    <input type="text" id="actualT${nextId}" class="row-input newText" placeholder="Text modificat" readonly>
+    <input type="text" id="initialT${nextMultiM}" class="row-input initialText" placeholder="Text inițial" readonly>
+    <input type="text" id="actualT${nextMultiM}" class="row-input newText" placeholder="Text modificat" readonly>
     `
   } else if (rowType === "single") {
-    let nextId = getNextID('bifaCoopProj', rowContainer);
+    let nextSingle = getNextID('bifaCoopProj', projectContainer);
     newRow.innerHTML = `
-    <input type="checkbox" id="bifaCoopProj${nextId}" class="main-row-checkbox">
-    <input type="text" id="coopProj${nextId}" class="row-input project" placeholder="Numele proiectului" readonly>
+    <input type="checkbox" id="bifaCoopProj${nextSingle}" class="main-row-checkbox">
+    <input type="text" id="coopProj${nextSingle}" class="row-input project" placeholder="Numele proiectului" readonly>
     `
   } else if (rowType === "single2") {
-    let nextId = getNextID('bifaImprProj', rowContainer);
+    let nextSingle2 = getNextID('bifaImprProj', projectContainer);
     newRow.innerHTML = `
-      <input type="checkbox" id="bifaImprProj${nextId}" class="main-row-checkbox">
-      <input type="text" id="imprProj${nextId}" class="row-input project" placeholder="Numele proiectului" readonly>
+      <input type="checkbox" id="bifaImprProj${nextSingle2}" class="main-row-checkbox">
+      <input type="text" id="imprProj${nextSingle2}" class="row-input project" placeholder="Numele proiectului" readonly>
       `
   } else if (rowType === "complex") {
-    let nextId = getNextID('ins', rowContainer);
+    let nextComplex = getNextID('ins', projectContainer);
     newRow.innerHTML = `
-    <input type="checkbox" id="ins${nextId}" class="main-row-checkbox">
+    <input type="checkbox" id="ins${nextComplex}" class="main-row-checkbox">
     <div class="left-column">
-        <input type="text" id="actName${nextId}" class="row-input project name-only required" placeholder="Nr.act" readonly required>
+        <input type="text" id="actName${nextComplex}" class="row-input project name-only required" placeholder="Nr.act" readonly required>
         <div class="select-column">
-            <select id="tipInregistrare${nextId}" class="required" required>
+            <select id="tipInregistrare${nextComplex}" class="required" required>
                             <option value="" selected>Tip inregistrare</option>
                             <option value="Intabulare">Intabulare</option>
                             <option value="Notare">Notare</option>
                             <option value="Inscrierea posesiei">Inscrierea posesiei</option>
                             <option value="Inscrierea provizorie">Inscrierea provizorie</option>
                           </select>
-                          <select id="tipDrept${nextId}">
+                          <select id="tipDrept${nextComplex}">
                             <option value="" selected>Tip drept</option>
                             <option value="Proprietate">Proprietate</option>
                             <option value="Administrare">Administrare</option>
@@ -207,7 +203,7 @@ function createRow(rowContainer, rowType) {
                             <option value="Uzufruct">Uzufruct</option>
                             <option value="Uzufruct viager">Uzufruct viager</option>
                           </select>
-                          <select id="modDobandire${nextId}">
+                          <select id="modDobandire${nextComplex}">
                             <option value="" selected>Mod Dobandire</option>
                             <option value="Accesiune">Accesiune</option>
                             <option value="Constituire">Constituire</option>
@@ -222,7 +218,7 @@ function createRow(rowContainer, rowType) {
                             <option value="Adjudecare">Adjudecare</option>
                             <option value="Reconstituire">Reconstituire</option>
                           </select>
-                          <select id="section${nextId}">
+                          <select id="section${nextComplex}">
                           <option value="">Sectiune</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
@@ -231,30 +227,30 @@ function createRow(rowContainer, rowType) {
                       </div>
                       <div class="right-column">
                       <div class="checkbox-label">
-                          <input id="referaTerenul${nextId}" type="checkbox" class="row-checkbox refera" checked />
-                          <label for="referaTerenul${nextId}" id="refera${nextId}" class="checkbox-text">Referă terenul</label>
+                          <input id="referaTerenul${nextComplex}" type="checkbox" class="row-checkbox refera" checked />
+                          <label for="referaTerenul${nextComplex}" id="refera${nextComplex}" class="checkbox-text">Referă terenul</label>
                       </div>
                       <div class="checkbox-label">
-                      <input id="poz${nextId}" type="checkbox" class="row-checkbox poz">
-                      <label for="poz${nextId}" id="continuePoz${nextId}" class="checkbox-text">Continuă numerotatea (P2)</label>
+                      <input id="poz${nextComplex}" type="checkbox" class="row-checkbox poz">
+                      <label for="poz${nextComplex}" id="continuePoz${nextComplex}" class="checkbox-text">Continuă numerotatea (P2)</label>
                       </div>
-                      <input type="text" id="detalii${nextId}" class="row-input ins-input name" placeholder="Detalii drept" readonly>
-                      <input type="text" id="comment${nextId}"class="row-input ins-input name" placeholder="Comentarii" readonly>
-                      <textarea type="text" id="note${nextId}" class="row-input ins-input name" placeholder="Notări" readonly></textarea>
+                      <input type="text" id="detalii${nextComplex}" class="row-input ins-input name" placeholder="Detalii drept" readonly>
+                      <input type="text" id="comment${nextComplex}"class="row-input ins-input name" placeholder="Comentarii" readonly>
+                      <textarea type="text" id="note${nextComplex}" class="row-input ins-input name" placeholder="Notări" readonly></textarea>
                   </div>
                     `
   }
 
-  if (rowContainer && rowContainer.querySelector('.add-row')) {
-    const addButton = rowContainer.querySelector('.add-row');
-    rowContainer.insertBefore(newRow, addButton);
+  if (projectContainer && projectContainer.querySelector('.add-project')) {
+    const addButton = projectContainer.querySelector('.add-project');
+    projectContainer.insertBefore(newRow, addButton);
   }
 
   return newRow;
 }
 
 
-const addProjectButtons = document.querySelectorAll('.add-row');
+const addProjectButtons = document.querySelectorAll('.add-project');
 
 addProjectButtons.forEach((button) => {
   button.addEventListener('click', function(event) {
@@ -265,14 +261,14 @@ addProjectButtons.forEach((button) => {
       return;
     }
     
-  if (event.target.classList.contains('add-row')) {
+  if (event.target.classList.contains('add-project')) {
     event.stopPropagation()
     event.preventDefault()
 
-    const rowContainer = event.target.closest('.row-container');
-    const rowType = rowContainer.getAttribute('data-row-type');
-    const errorMsg = rowContainer.querySelector('.error');
-    const customRows = rowContainer.querySelectorAll('.custom-row');
+    const projectContainer = event.target.closest('.project-container');
+    const rowType = projectContainer.getAttribute('data-row-type');
+    const errorMsg = projectContainer.querySelector('.error');
+    const customRows = projectContainer.querySelectorAll('.custom-row');
 
     errorMsg.style.display = "none";
     let isValidArray = [];
@@ -280,7 +276,7 @@ addProjectButtons.forEach((button) => {
 
     if (rowType === "multi" || rowType === "single") {
       isNotEmpty = Array.from(customRows).every(row => {
-        return Array.from(row.querySelectorAll('.row-input, select')).every(input => input.value !== "");
+        return Array.from(row.querySelectorAll('.row-input')).every(input => input.value !== "");
       });
 
       isValidArray.push(isNotEmpty);
@@ -324,18 +320,17 @@ addProjectButtons.forEach((button) => {
     }
 
     if (rowType === "multi") {
-      createRow(rowContainer, 'multi')
-      loadData()
+      createRow(projectContainer, 'multi')
     } else if (rowType === "multi-w") {
-      createRow(rowContainer, 'multi-w')
+      createRow(projectContainer, 'multi-w')
     } else if (rowType === "multi-m") {
-      createRow(rowContainer, 'multi-m')
+      createRow(projectContainer, 'multi-m')
     } else if (rowType === "single") {
-      createRow(rowContainer, 'single')
+      createRow(projectContainer, 'single')
     } else if (rowType === "single2") {
-      createRow(rowContainer, 'single2')
+      createRow(projectContainer, 'single2')
     } else if (rowType === "complex") {
-      createRow(rowContainer, 'complex')
+      createRow(projectContainer, 'complex')
     }
   }
 });
@@ -459,34 +454,36 @@ function createAutoInscriereObj(row, rowIndex) {
 }
 
 
-function createAdresaObj(row, rowIndex) {
-  const idSuffix = rowIndex === 0 ? '' : rowIndex;
 
-  const elem = row.querySelector(`#satName${idSuffix}`);
+
+function createAdresaObj(row, rowIndex) {
+
+  // same as createautoinscriereobj, only get the non null values
+
+  const idSuffix = rowIndex === 0 ? '' : rowIndex;
+  const elem = row.querySelector(`#postcode${idSuffix}`);
 
   if (elem) {
-    const values = {
-      addy: row.querySelector(`#addy${idSuffix}`).checked,
-      projectName: row.querySelector(`#projectName${idSuffix}`).value,
-      judetName: row.querySelector(`#judetName${idSuffix}`).value,
-      satNameAndZipCode: row.querySelector(`#satName${idSuffix}`).value,
-      intra: row.querySelector(`#intravilanCheck${idSuffix}`).checked,
-    };
+  const values = {
+    addy: row.querySelector(`#addy${idSuffix}`).checked,
+    name: row.querySelector(`#name${idSuffix}`).value,
+    satName: row.querySelector(`#satname${idSuffix}`).value,
+    postcode: row.querySelector(`#postcode${idSuffix}`).value,
+    intra: row.querySelector(`#intravilanCheck${idSuffix}`).checked,
+  };
 
-    const allEmpty = !Object.values(values).some(value => {
-      return typeof value === 'boolean' ? value : (value && value.trim() !== '');
-    });
-
-    if (!allEmpty) {
-      return values;
-    }
-
-    return null;
+  const allEmpty = !Object.values(values).some(value => {
+    return typeof value === 'boolean' ? value : (value && value.trim() !== '');
   }
+  );
+
+  if (!allEmpty) {
+    return values;
+  }
+
+  return null;
 }
-
-
-
+}
 
 function createZonaCoopObj(row, rowIndex) {
 
@@ -593,26 +590,17 @@ function saveStorage() {
     document.querySelectorAll('.tab-pane').forEach(function(tab) {
       tab.querySelectorAll('input, select, textarea').forEach(function(el) {
         let value;
-
         if (el.tagName === 'TEXTAREA') {
             value = el.value;
         } else {
             value = el.getAttribute('type') === 'checkbox' ? el.checked : el.value;
         }
-            if ((typeof value === 'string' && value.trim() !== '') || typeof value === 'boolean' || typeof valye === 'object') {
+            if ((typeof value === 'string' && value.trim() !== '') || typeof value === 'boolean') {
           if (el.getAttribute('id')) {
             storageArray.push({
               key: el.getAttribute('id'),
               value: value
             });
-          } else if (el.getAttribute('class') === 'sat-dropdown') {
-            const satNameOptions = Array.from(el.querySelectorAll('option')).map(option => {
-              return {
-                key: option.value,
-                value: option.textContent
-              }
-            });
-            storageArray = storageArray.concat(satNameOptions);
           } else {
             storageArray.push({
               key: createXPathFromElement(el),
@@ -661,14 +649,7 @@ tabLinks.forEach((tabLink) => {
     e.preventDefault();
     const tabID = e.target.getAttribute('href').substring(1);
     const tabElement = document.getElementById(tabID);
-    if (tabElement) {
-      refreshStorage();
-    }
-    if (tabID === 'proiecte') {
-        loadData().then(() => {
-          refreshStorage();
-        });
-    };
+    if (tabElement) refreshStorage();
   });
 });
 
@@ -687,9 +668,6 @@ document.querySelectorAll('.saveBtn').forEach((button) => {
 });
 
 document.addEventListener("DOMContentLoaded", refreshStorage);
-document.addEventListener("DOMContentLoaded", loadData);
-
-
 function checkFirstVisit() {
   chrome.storage.local.get('hasVisited', function(result) {
       if (result.hasVisited) {
@@ -757,106 +735,3 @@ document.getElementById('ncList').addEventListener('paste', function(e) {
 
   this.value = this.value + processedData;
 });
-
-
-// Select all `select` elements
-const selects = document.querySelectorAll('select');
-
-// Function to update the `selected` attribute of an option
-function updateSelectedOption(event) {
-    // Remove `selected` attribute from all options
-    event.target.querySelectorAll('option').forEach(opt => {
-        opt.removeAttribute('selected');
-    });
-
-    // Add `selected` attribute to the chosen option
-    event.target.options[event.target.selectedIndex].setAttribute('selected', true);
-}
-
-// Add event listeners to all `select` elements
-selects.forEach(select => {
-    select.addEventListener('change', updateSelectedOption);
-});
-
-
-/////////////////////////
-async function loadData() {
-  console.log('loadData called');
-  try {
-    const response = await fetch('regions.json');
-    const locations = await response.json();
-    initializeDropdowns(locations);
-  } catch (error) {
-    console.error('Error loading the JSON data:', error);
-  }
-}
-
-function initializeDropdowns(locations) {
-  const dataByJudet = locations.reduce((acc, location) => {
-      if (!acc[location.judet]) {
-        acc[location.judet] = [];
-      }
-      acc[location.judet].push({ nume: location.nume, zip: location.zip });
-      return acc;
-  }, {});
-
-  const sortedJudets = Object.keys(dataByJudet).sort();
-
-  const judetDropdowns = document.querySelectorAll('.judet-dropdown');
-  judetDropdowns.forEach(judetDropdown => {
-    sortedJudets.forEach(judet => {
-      const option = document.createElement('option');
-      option.value = judet;
-      option.textContent = judet;
-      judetDropdown.appendChild(option);
-    });
-  });
-
-  judetDropdowns.forEach(judetDropdown => {
-  judetDropdown.addEventListener('change', function(event) {
-    console.log('judetDropdown change event')
-    const judetDropdown = event.target.closest('.judet-dropdown');
-    if (!judetDropdown) return;
-    populateSatDropdown(judetDropdown, dataByJudet);
-  });
-  });
-
-  judetDropdowns.forEach(judetDropdown => {
-    populateSatDropdown(judetDropdown, dataByJudet);
-  });
-
-  judetDropdowns.forEach(judetDropdown => {
-    judetDropdown.dispatchEvent(new Event('change'));
-  });
-}
-
-function populateSatDropdown(judetDropdown, dataByJudet) {
-
-  const rowContainer = judetDropdown.closest('.custom-row');
-  const numeDropdown = rowContainer.querySelector('.sat-dropdown');
-
-  numeDropdown.innerHTML = '';
-  const selectedJudet = judetDropdown.value;
-  const numeData = dataByJudet[selectedJudet];
-  const shouldSelectDefaultOption = !numeDropdown.querySelector('option[selected]:not([disabled])');
-
-  // Create a default option
-  const defaultOption = document.createElement('option');
-  defaultOption.value = "";
-  defaultOption.selected = shouldSelectDefaultOption;
-  defaultOption.disabled = true;
-  defaultOption.textContent = "Sat/Localitate";
-  // Append the default option to the dropdown
-  numeDropdown.appendChild(defaultOption);
-
-  const sortedNumeData = numeData.sort((a, b) => a.nume.localeCompare(b.nume));
-
-  sortedNumeData.forEach(({ nume, zip }) => {
-    const option = document.createElement('option');
-    option.value = zip + "/" + nume;
-    option.textContent = nume;
-    numeDropdown.appendChild(option);
-  });
-}
-
-loadData();
