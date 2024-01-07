@@ -191,6 +191,10 @@ input, textarea, select {
   background-color: white;
 }
 
+input[disabled], textarea[disabled], select[disabled] {
+  background-color: #c4c4c4;
+}
+
 .add-project {
   margin: 10px;
 }
