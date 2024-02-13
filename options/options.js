@@ -141,7 +141,7 @@ function createRow(projectContainer, rowType) {
     <input type="text" id="desiredText${nextMultiW}" class="row-input text" placeholder="Text dorit" readonly>
     `
   } else if (rowType === "multi-m") {
-    let nextMultiM = getNextID('replaceValues', projectContainer);
+    let nextMultiM = getNextID('replaceField', projectContainer);
     newRow.innerHTML = `                          
     <input type="checkbox" id="replaceField${nextMultiM}" class="main-row-checkbox">
     <select id="modif${nextMultiM}">
@@ -542,7 +542,7 @@ function createZonaImprObj(row, rowIndex) {
 function createWriteValuesObj(row, rowIndex) {
 
   const idSuffix = rowIndex === 0 ? '' : rowIndex;
-  const elem = row.querySelector(`#writeValues${idSuffix}`);
+  const elem = row.querySelector(`#writeField${idSuffix}`);
 
   if (elem) {
   const values = {
@@ -567,7 +567,7 @@ function createWriteValuesObj(row, rowIndex) {
 function createReplaceValuesObj(row, rowIndex) {
 
   const idSuffix = rowIndex === 0 ? '' : rowIndex;
-  const elem = row.querySelector(`#replaceValues${idSuffix}`);
+  const elem = row.querySelector(`#replaceField${idSuffix}`);
 
   if (elem) {
   const values = {
@@ -625,8 +625,8 @@ function saveStorage() {
     const adresaRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="addy"]').length > 0);
     const zonaCoopRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="bifaCoopProj"]').length > 0);
     const zonaImprRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="bifaImprProj"]').length > 0);
-    const writeValuesRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="writeValues"]').length > 0);
-    const replaceValuesRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="replaceValues"]').length > 0);
+    const writeValuesRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="writeField"]').length > 0);
+    const replaceValuesRows = Array.from(rows).filter(row => row.querySelectorAll('[id^="replaceField"]').length > 0);
 
     const autoInscriereData = autoInscriereRows.map((row, index) => createAutoInscriereObj(row, index)).filter(obj => obj !== null);
     const adresaData = adresaRows.map((row, index) => createAdresaObj(row, index)).filter(obj => obj !== null);
