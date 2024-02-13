@@ -167,8 +167,9 @@
                     <div class="project-container" data-row-type="multi">
                       <div class="custom-row column">
                         <select id="searchField">
+
                           <!-- IN PROGRESS -->
-                          <option value="" selected>Câmpul în care se vor căuta informațiile</option>
+                          <option value="" selected required disabled>Câmpul în care se vor căuta informațiile</option>
                           <option value="[ng-model='scopeRef.d22.val']">Nr. Parcelă</option>
                           <option value="[ng-model='scopeRef.d19.val']">Nr. carte</option>
                           <option value="[ng-disabled='scopeRef.d66.ro']">Imobil (ID)</option>
@@ -177,6 +178,8 @@
                         <div id="checkboxGrid">
                           <p style="margin: 2%;">Ce informații vor fi salvate</p>
                           <div class="checkbox-label checkGrid">
+
+                            <!-- VALUE = THE INDEX OF THE TD IN THE ROW -->
                             <input id="nrTarla" type="checkbox" value="1" class="row-checkbox grid" />
                             <label for="nrTarla" id="nrTarlaLabel" style="font-size: 150%;" class="checkbox-text grid-text">Nr. Tarla</label>
                           </div>
@@ -209,12 +212,13 @@
                             <label for="idElectronic" id="ieLabel" style="font-size: 150%;" class="checkbox-text grid-text">Identificator Electronic</label>
                           </div>
                         </div>
-                        <label for="ncList">Lista cu informațiile, separate de spațiu:</label>
-                        <textarea id="ncList" class="row-input project" placeholder="Scrieți aici numerele cadastrale..."></textarea>
+                        <label for="info" required>Lista cu informațiile, separate de spațiu:</label>
+                        <textarea id="info" class="row-input project" placeholder="Scrieți aici numerele cadastrale..."></textarea>
                       </div>
                       <p class="notes"> Notă: Numerele se pot căuta <strong>doar</strong> în tab-ul de Parcele. Puteți copia numerele cadastrale din csv/excel și să le lipiți aici.</p>
                       <p class="notes" <strong>Apăsați pe ALT + C în timp ce sunteți pe tab-ul de Parcele pentru a începe căutarea!</strong></p>
                       <!-- <p class="warning notes" style="color: red; font-size: 110%;"></p> -->
+
                     </div>
                   </div>
                 </div>
