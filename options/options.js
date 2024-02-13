@@ -126,9 +126,9 @@ function createRow(projectContainer, rowType) {
     </div>
   `
   } else if (rowType === "multi-w") {
-    let nextMultiW = getNextID('writeValues', projectContainer);
+    let nextMultiW = getNextID('writeField', projectContainer);
     newRow.innerHTML = `
-    <input type="checkbox" id="writeValues${nextMultiW}" class="main-row-checkbox">
+    <input type="checkbox" id="writeField${nextMultiW}" class="main-row-checkbox" data-bs-toggle="collapse">
     <select id="writeSelect${nextMultiW}">
       <option value="" selected>Câmpul în care se va scrie textul</option>>
       <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
@@ -143,7 +143,7 @@ function createRow(projectContainer, rowType) {
   } else if (rowType === "multi-m") {
     let nextMultiM = getNextID('replaceValues', projectContainer);
     newRow.innerHTML = `                          
-    <input type="checkbox" id="replaceValues${nextMultiM}" class="main-row-checkbox">
+    <input type="checkbox" id="replaceField${nextMultiM}" class="main-row-checkbox">
     <select id="modif${nextMultiM}">
       <option value="" selected>Câmpul în care se face modificarea</option>
       <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
@@ -379,17 +379,19 @@ function refreshStorage() {
   chrome.storage.local.get(['mainOptions']).then((result) => {
     if (result.mainOptions) {
       try {
+        console.log('Retrieved mainOptions from storage:', result.mainOptions);
         const searchMatchingInputs = function(option) {
           let foundIdEl = false;
           document.querySelectorAll('.tab-pane input, .tab-pane select, .tab-pane textarea').forEach(function(el) {
             if (option.key === el.getAttribute('id')) {
               el[el.type === 'checkbox' ? 'checked' : 'value'] = option.value;
-              foundIdEl = true;
+              foundIdEl = true;  
             }
           });
           return foundIdEl;
         }
         const parsedData = JSON.parse(result.mainOptions);
+        console.log('Parsed mainOptions:', parsedData);
         parsedData.forEach(function(option) {
           let foundIdEl = searchMatchingInputs(option);
           if (!foundIdEl) {
@@ -397,20 +399,24 @@ function refreshStorage() {
             if (el) {
               el[el.type === 'checkbox' ? 'checked' : 'value'] = option.value;
             } else {
+              console.log(option, option.key)
               let existingContainer = document.querySelectorAll('#' + option.key.replace(/\d+$/, ""));
+              console.log('Existing container:', existingContainer);
               if (existingContainer && existingContainer[0]) {
                 let event = new CustomEvent('click', { detail: { suppressErrors: true } });
-                existingContainer[0].closest('.rowContainer').querySelector('.btn-primary').dispatchEvent(event);              }
+                existingContainer[0].closest('.rowContainer').querySelector('.btn-primary').dispatchEvent(event);              
+              }
               searchMatchingInputs(option);
             }
           }
-
         });
       } catch (e) {
+        console.error('Error in refreshStorage:', e);
       }
     }
   });
 }
+
 
 function createAutoInscriereObj(row, rowIndex) {
   const idSuffix = rowIndex === 0 ? '' : rowIndex;
@@ -540,7 +546,7 @@ function createWriteValuesObj(row, rowIndex) {
 
   if (elem) {
   const values = {
-    write: row.querySelector(`#writeValues${idSuffix}`).checked,
+    write: row.querySelector(`#writeField${idSuffix}`).checked,
     field: row.querySelector(`#writeSelect${idSuffix}`).value,
     text: row.querySelector(`#desiredText${idSuffix}`).value,
   };
@@ -565,7 +571,7 @@ function createReplaceValuesObj(row, rowIndex) {
 
   if (elem) {
   const values = {
-    replace: row.querySelector(`#replaceValues${idSuffix}`).checked,
+    replace: row.querySelector(`#replaceField${idSuffix}`).checked,
     field: row.querySelector(`#modif${idSuffix}`).value,
     initialText: row.querySelector(`#initialT${idSuffix}`).value,
     correctedText: row.querySelector(`#actualT${idSuffix}`).value,
@@ -601,11 +607,13 @@ function saveStorage() {
               key: el.getAttribute('id'),
               value: value
             });
+            console.log("saved from id directly", storageArray)
           } else {
             storageArray.push({
               key: createXPathFromElement(el),
               value: value
             });
+            console.log("saved from xpath", storageArray)
           }
         }
       });
@@ -668,16 +676,24 @@ document.querySelectorAll('.saveBtn').forEach((button) => {
 });
 
 document.addEventListener("DOMContentLoaded", refreshStorage);
-function checkFirstVisit() {
-  chrome.storage.local.get('hasVisited', function(result) {
-      if (result.hasVisited) {
-          showTab('general');
+function checkVisitAndShowTab() {
+  chrome.storage.local.get(['firstVisit', 'sawUpdates'], function(result) {
+      if (!result.firstVisit) {
+          // If it's the user's first visit
+          showTab('about'); // Show the 'about' tab
+          // Set 'firstVisit' to true and 'sawUpdates' to true as well since we're showing the 'about' tab first
+          chrome.storage.local.set({ 'firstVisit': true, 'sawUpdates': true });
+      } else if (!result.sawUpdates) {
+          // If it's not the first visit, but the updates haven't been seen
+          showTab('updates'); // Show the 'updates' tab
+          chrome.storage.local.set({ 'sawUpdates': true }); // Set 'sawUpdates' to true
       } else {
-          showTab('about');
-          chrome.storage.local.set({ 'hasVisited': true });
+          // If it's not the first visit and updates have been seen
+          showTab('general'); // Show the 'general' tab as a default
       }
   });
 }
+
 
 function showTab(tabName) {
   document.querySelectorAll('.nav-link, .tab-pane').forEach(elem => {
@@ -688,7 +704,7 @@ function showTab(tabName) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  checkFirstVisit();
+  checkVisitAndShowTab();
 });
 
 function updateMainCheckbox(mainCheckbox, childCheckboxes) {

@@ -226,24 +226,45 @@ input[disabled], textarea[disabled], select[disabled] {
   font-size: 150%;
 }
 
-.checkbox-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 5%;
-  gap: 5px;
+
+
+
+#checkboxGrid {
+  width: 100%;
 }
+
+.checkGrid {
+  width: 30%; /* Set the width for each checkbox container */
+  display: inline-block;
+  margin-right: 2%; /* Adjust the spacing between checkboxes */
+  margin-bottom: 2%;
+}
+
+.checGrid:nth-child(3n) {
+  margin-right: 0; /* Clear margin for every third checkbox */
+}
+
 
 .row-input:not([disabled]):hover, select:not([disabled]):hover, textarea:not([disabled]):hover {
   border-color: #007bff;
 }
 
 .row-checkbox.refera, .row-checkbox.poz {
+  margin-left: 10px;
+  margin: 0 5px;
+  max-width: 100%;
+  min-width: 5%;
+}
+
+.row-checkbox.refera, .row-checkbox.grid, .row-checkbox.poz {
   font-family: 'Arial', sans-serif;
   font-weight: bold;
-  font-size: 150%;
   user-select: none;
   color: #333;
+}
+
+.row-checkbox.grid {
+  font-size: 200px !important;
   margin-left: 10px;
   margin: 0 5px;
   max-width: 100%;
@@ -411,9 +432,13 @@ button>input[type="checkbox"] {
   margin-bottom: 15px;
 }
 
-.custom-row.column label {
+.custom-row.column label:not(.grid-text) {
   margin-top: 5px;
   font-size: 130%;
+}
+
+.grid-text {
+  text-align: center;
 }
 
 textarea {

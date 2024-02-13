@@ -827,7 +827,7 @@ const findNcValues = async () => {
 
 const ncField = async() => {
   try {
-  const ncFieldValue = await getStorageItem('searchField');
+  const ncFieldValue = await getStorageItem('searchInfo');
     return ncFieldValue;
   } catch (error) {
     console.error('Error fetching ncList:', error);
