@@ -379,7 +379,6 @@ function refreshStorage() {
   chrome.storage.local.get(['mainOptions']).then((result) => {
     if (result.mainOptions) {
       try {
-        console.log('Retrieved mainOptions from storage:', result.mainOptions);
         const searchMatchingInputs = function(option) {
           let foundIdEl = false;
           document.querySelectorAll('.tab-pane input, .tab-pane select, .tab-pane textarea').forEach(function(el) {
@@ -391,7 +390,6 @@ function refreshStorage() {
           return foundIdEl;
         }
         const parsedData = JSON.parse(result.mainOptions);
-        console.log('Parsed mainOptions:', parsedData);
         parsedData.forEach(function(option) {
           let foundIdEl = searchMatchingInputs(option);
           if (!foundIdEl) {
@@ -399,9 +397,7 @@ function refreshStorage() {
             if (el) {
               el[el.type === 'checkbox' ? 'checked' : 'value'] = option.value;
             } else {
-              console.log(option, option.key)
               let existingContainer = document.querySelectorAll('#' + option.key.replace(/\d+$/, ""));
-              console.log('Existing container:', existingContainer);
               if (existingContainer && existingContainer[0]) {
                 let event = new CustomEvent('click', { detail: { suppressErrors: true } });
                 existingContainer[0].closest('.rowContainer').querySelector('.btn-primary').dispatchEvent(event);              
@@ -607,13 +603,11 @@ function saveStorage() {
               key: el.getAttribute('id'),
               value: value
             });
-            console.log("saved from id directly", storageArray)
           } else {
             storageArray.push({
               key: createXPathFromElement(el),
               value: value
             });
-            console.log("saved from xpath", storageArray)
           }
         }
       });
