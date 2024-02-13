@@ -131,12 +131,12 @@ function createRow(projectContainer, rowType) {
     <input type="checkbox" id="writeField${nextMultiW}" class="main-row-checkbox" data-bs-toggle="collapse">
     <select id="writeSelect${nextMultiW}">
       <option value="" selected>Câmpul în care se va scrie textul</option>>
-      <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+      <option value="[class='col'] [ng-model='d79.val'][maxlength='2000']">Note imobil</option>
       <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
-      <option value="[class='col'] [ng-model='d47.val']">Note act</option>
-      <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
-      <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
-      <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+      <option value="[class='col'] [ng-model='d47.val'][maxlength='4000']">Note act</option>
+      <option value="[class='col-12'] [ng-model='d50.val'][maxlength='2000']">Note proprietar</option>
+      <option value="[ng-model='scopeRef.d56.val'][rows='4']">Comentarii înscriere</option>
+      <option value="[ng-model='scopeRef.d53.val'][rows='4']">Notări înscriere</option>
     </select>
     <input type="text" id="desiredText${nextMultiW}" class="row-input text" placeholder="Text dorit" readonly>
     `
@@ -146,12 +146,12 @@ function createRow(projectContainer, rowType) {
     <input type="checkbox" id="replaceField${nextMultiM}" class="main-row-checkbox">
     <select id="modif${nextMultiM}">
       <option value="" selected>Câmpul în care se face modificarea</option>
-      <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+      <option value="[class='col'] [ng-model='d79.val'][maxlength='2000']">Note imobil</option>
       <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
-      <option value="[class='col'] [ng-model='d47.val']">Note act</option>
-      <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
-      <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
-      <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+      <option value="[class='col'] [ng-model='d47.val'][maxlength='4000']">Note act</option>
+      <option value="[class='col-12'] [ng-model='d50.val'][maxlength='2000']">Note proprietar</option>
+      <option value="[ng-model='scopeRef.d56.val'][rows='4']">Comentarii înscriere</option>
+      <option value="[ng-model='scopeRef.d53.val'][rows='4']">Notări înscriere</option>
     </select>
     <input type="text" id="initialT${nextMultiM}" class="row-input initialText" placeholder="Text inițial" readonly>
     <input type="text" id="actualT${nextMultiM}" class="row-input newText" placeholder="Text modificat" readonly>

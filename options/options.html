@@ -91,7 +91,7 @@
                         </div>
                         <h2 class="accordion-header custom-header d-flex align-items-center" id="heading2">
                           <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-                          <input type="checkbox" id="writeEtaj"class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                          <input type="checkbox" id="writeEtaj" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
                             Completare automată nr. etaje cu "1"
                           </button>
                         </h2>
@@ -108,7 +108,7 @@
                         </h2>
                           <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
                             <div class="accordion-body">
-                              Câmpul suprafeței totale a construcției va completată cu suprafața măsurată înmulțită cu numărul de etaje.
+                              Câmpul suprafeței totale a construcției va fi completată cu suprafața măsurată înmulțită cu numărul de etaje.
                             </div>
                           </div>
                         <h2 class="accordion-header custom-header d-flex align-items-center" id="heading4">
@@ -415,12 +415,12 @@
                           <input type="checkbox" id="writeField" class="main-row-checkbox" data-bs-toggle="collapse">
                           <select id="writeSelect">
                             <option value="" selected>Câmpul în care se va scrie textul</option>>
-                            <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+                            <option value="[class='col'] [ng-model='d79.val'][maxlength='2000']">Note imobil</option>
                             <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
-                            <option value="[class='col'] [ng-model='d47.val']">Note act</option>
-                            <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
-                            <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
-                            <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+                            <option value="[class='col'] [ng-model='d47.val'][maxlength='4000']">Note act</option>
+                            <option value="[class='col-12'] [ng-model='d50.val'][maxlength='2000']">Note proprietar</option>
+                            <option value="[ng-model='scopeRef.d56.val'][rows='4']">Comentarii înscriere</option>
+                            <option value="[ng-model='scopeRef.d53.val'][rows='4']">Notări înscriere</option>
                           </select>
                           <input type="text" id="desiredText" class="row-input text" placeholder="Text dorit" readonly>
                         </div>
@@ -444,12 +444,12 @@
                           <input type="checkbox" id="replaceField" class="main-row-checkbox">
                           <select id="modif">
                             <option value="" selected>Câmpul în care se face modificarea</option>
-                            <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+                            <option value="[class='col'] [ng-model='d79.val'][maxlength='2000']">Note imobil</option>
                             <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
-                            <option value="[class='col'] [ng-model='d47.val']">Note act</option>
-                            <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
-                            <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
-                            <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+                            <option value="[class='col'] [ng-model='d47.val'][maxlength='4000']">Note act</option>
+                            <option value="[class='col-12'] [ng-model='d50.val'][maxlength='2000']">Note proprietar</option>
+                            <option value="[ng-model='scopeRef.d56.val'][rows='4']">Comentarii înscriere</option>
+                            <option value="[ng-model='scopeRef.d53.val'][rows='4']">Notări înscriere</option>
                           </select>
                           <input type="text" id="initialT" class="row-input initialText" placeholder="Text inițial" readonly>
                           <input type="text" id="actualT" class="row-input newText" placeholder="Text modificat" readonly>
