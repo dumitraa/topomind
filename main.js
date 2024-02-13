@@ -4,96 +4,48 @@
 
 //////////////////////////////////////////////////////////
 
-
-function getAutoInscriereData() {
+function getData(data) {
   return new Promise((resolve, reject) => {
-    chrome.storage.local.get(['autoInscriereData'], (result) => {
+    chrome.storage.local.get([data], (result) => {
       if(chrome.runtime.lastError){
         return reject(chrome.runtime.lastError);
       }
-      if(result.autoInscriereData) {
-        const parsedData = JSON.parse(result.autoInscriereData);
+      if(result) {
+        const parsedData = JSON.parse(result.data);
         return resolve(parsedData);
       }
       return resolve(null);
     });
   });
+}
+
+function getSearchInfoData() {
+  getData('searchInfo');
+}
+
+
+function getAutoInscriereData() {
+  getData('autoInscriereData ');
 }
 
 function getAdresaData() {
- return new Promise((resolve, reject) => {
-    chrome.storage.local.get(['adresaData'], (result) => {
-      if(chrome.runtime.lastError){
-        return reject(chrome.runtime.lastError);
-      }
-      if(result.adresaData) {
-        const parsedData = JSON.parse(result.adresaData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  getData('adresaData');
 }
 
 function getZonaCoopData() {
-  return new Promise((resolve, reject) => {
-      chrome.storage.local.get(['zonaCoopData'], (result) => {
-        if(chrome.runtime.lastError){
-          return reject(chrome.runtime.lastError);
-        }
-        if(result.zonaCoopData) {
-          const parsedData = JSON.parse(result.zonaCoopData);
-          return resolve(parsedData);
-        }
-        return resolve(null);
-      });
-    });
+  getData('zonaCoopData');
 }
 
 function getZonaImprData() {
-  return new Promise((resolve, reject) => {
-      chrome.storage.local.get(['zonaImprData'], (result) => {
-        if(chrome.runtime.lastError){
-          return reject(chrome.runtime.lastError);
-        }
-        if(result.zonaImprData) {
-          const parsedData = JSON.parse(result.zonaImprData);
-          return resolve(parsedData);
-        }
-        return resolve(null);
-      });
-    });
+  getData('zonaImprData');
 }
 
 function getWriteValuesData() {
-  return new Promise((resolve, reject) => {
-      chrome.storage.local.get(['writeValuesData'], (result) => {
-        if(chrome.runtime.lastError){
-          return reject(chrome.runtime.lastError);
-        }
-        if(result.writeValuesData) {
-          const parsedData = JSON.parse(result.writeValuesData);
-          return resolve(parsedData);
-        }
-        return resolve(null);
-      });
-    });
+  getData('writeValuesData');
 }
 
 function getReplaceValuesData() {
-  return new Promise((resolve, reject) => {
-      chrome.storage.local.get(['replaceValuesData'], (result) => {
-        if(chrome.runtime.lastError){
-          return reject(chrome.runtime.lastError);
-        }
-        if(result.replaceValuesData) {
-          const parsedData = JSON.parse(result.replaceValuesData);
-          return resolve(parsedData);
-        }
-        return resolve(null);
-      }
-    );
-  });
+  getData('replaceValuesData');
 }
 
 
