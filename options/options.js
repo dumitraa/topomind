@@ -151,27 +151,27 @@ function createRow(projectContainer, rowType) {
     <input type="checkbox" id="writeField${nextMultiW}" class="main-row-checkbox" data-bs-toggle="collapse">
     <select id="writeSelect${nextMultiW}">
       <option value="" selected>Câmpul în care se va scrie textul</option>>
-      <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+      <option value="[class='col'] [ng-model='d79.val'][maxlength='2000']">Note imobil</option>
       <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
-      <option value="[class='col'] [ng-model='d47.val']">Note act</option>
-      <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
-      <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
-      <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+      <option value="[class='col'] [ng-model='d47.val'][maxlength='4000']">Note act</option>
+      <option value="[class='col-12'] [ng-model='d50.val'][maxlength='2000']">Note proprietar</option>
+      <option value="[ng-model='scopeRef.d56.val'][rows='4']">Comentarii înscriere</option>
+      <option value="[ng-model='scopeRef.d53.val'][rows='4']">Notări înscriere</option>
     </select>
     <input type="text" id="desiredText${nextMultiW}" class="row-input text" placeholder="Text dorit" readonly>
     `;
   } else if (rowType === "multi-m") {
-    let nextMultiM = getNextID("replaceValues", projectContainer);
+    let nextMultiM = getNextID("replaceField", projectContainer);
     newRow.innerHTML = `                          
     <input type="checkbox" id="replaceField${nextMultiM}" class="main-row-checkbox">
     <select id="modif${nextMultiM}">
       <option value="" selected>Câmpul în care se face modificarea</option>
-      <option value="[class='col'] [ng-model='d79.val']">Note imobil</option>
+      <option value="[class='col'] [ng-model='d79.val'][maxlength='2000']">Note imobil</option>
       <option value="[class='col-12'] [ng-model='d64.val']">Notițe parcelă</option>
-      <option value="[class='col'] [ng-model='d47.val']">Note act</option>
-      <option value="[class='col-12'] [ng-model='d50.val']">Note proprietar</option>
-      <option value="[ng-model='scopeRef.d56.val']">Comentarii înscriere</option>
-      <option value="[ng-model='scopeRef.d53.val']">Notări înscriere</option>
+      <option value="[class='col'] [ng-model='d47.val'][maxlength='4000']">Note act</option>
+      <option value="[class='col-12'] [ng-model='d50.val'][maxlength='2000']">Note proprietar</option>
+      <option value="[ng-model='scopeRef.d56.val'][rows='4']">Comentarii înscriere</option>
+      <option value="[ng-model='scopeRef.d53.val'][rows='4']">Notări înscriere</option>
     </select>
     <input type="text" id="initialT${nextMultiM}" class="row-input initialText" placeholder="Text inițial" readonly>
     <input type="text" id="actualT${nextMultiM}" class="row-input newText" placeholder="Text modificat" readonly>
@@ -332,11 +332,10 @@ addProjectButtons.forEach((button) => {
               }
               return el.value !== "";
             });
-
           isValidArray.push(isNotEmpty);
         });
       }
-
+      
       const isFormValid = isValidArray.every(Boolean);
       if (!isFormValid && !suppressErrors) {
         errorMsg.style.display = "block";
@@ -642,7 +641,6 @@ function createReplaceValuesObj(row, rowIndex) {
     if (!allEmpty) {
       return values;
     }
-
     return null;
   }
 }
@@ -681,7 +679,7 @@ function saveStorage() {
     const rows = document.querySelectorAll(".custom-row");
 
     const searchInfoRow = document.querySelector('[id="searchInfoRow"]')
-    console.log("searchInfoRow", searchInfoRow);
+    
     const autoInscriereRows = Array.from(rows).filter(
       (row) => row.querySelectorAll('[id^="ins"]').length > 0
     );
@@ -702,7 +700,7 @@ function saveStorage() {
     );
 
     const searchInfoData = searchInfoRow ? [createSearchInfoObj()].filter(obj => obj !== null) : [];
-    console.log("searchInfoData", searchInfoData);
+
     const autoInscriereData = autoInscriereRows
       .map((row, index) => createAutoInscriereObj(row, index))
       .filter((obj) => obj !== null);
@@ -718,7 +716,6 @@ function saveStorage() {
     const writeValuesData = writeValuesRows
       .map((row, index) => createWriteValuesObj(row, index))
       .filter((obj) => obj !== null);
-    // detailed console.log abvout writevaluesdata
     const replaceValuesData = replaceValuesRows
       .map((row, index) => createReplaceValuesObj(row, index))
       .filter((obj) => obj !== null);
@@ -773,17 +770,13 @@ document.addEventListener("DOMContentLoaded", refreshStorage);
 function checkVisitAndShowTab() {
   chrome.storage.local.get(["firstVisit", "sawUpdates"], function (result) {
     if (!result.firstVisit) {
-      // If it's the user's first visit
-      showTab("about"); // Show the 'about' tab
-      // Set 'firstVisit' to true and 'sawUpdates' to true as well since we're showing the 'about' tab first
+      showTab("about");
       chrome.storage.local.set({ firstVisit: true, sawUpdates: true });
     } else if (!result.sawUpdates) {
-      // If it's not the first visit, but the updates haven't been seen
-      showTab("updates"); // Show the 'updates' tab
-      chrome.storage.local.set({ sawUpdates: true }); // Set 'sawUpdates' to true
+      showTab("updates");
+      chrome.storage.local.set({ sawUpdates: true });
     } else {
-      // If it's not the first visit and updates have been seen
-      showTab("general"); // Show the 'general' tab as a default
+      showTab("general");
     }
   });
 }

@@ -15,6 +15,7 @@ function getData(data) {
         const parsedData = JSON.parse(result[data]);
         return resolve(parsedData);
       }
+      console.log("getData result for", data, "is null");
       return resolve(null);
     });
   });
@@ -73,7 +74,6 @@ function getStorageItem(key) {
                 /* LOGIC FOR FUNCTIONS */
 
 //////////////////////////////////////////////////////////
-
 
 const constructiiLogic = async () => {
   try {
@@ -392,6 +392,7 @@ if (shortcutsCheck) {
   );
   shortcut(13, false, false, '[ng-click="confirmationScope.ok()"]', "focus");
 }
+
 
 const searchInfoCheck = async () => {
   await getStorageItem("searchInfo");
@@ -726,11 +727,21 @@ function selectRow() {
   });
 }
 
+function writeCcX3() {
+  let measuredCC = document.querySelector('[ng-model="d10.val"]');
+  let totalCC = document.querySelector('[ng-model="d13.val"]');
+  let etaj = document.querySelector('[ng-model="d20.val"]');
 
+  let etajTotal = measuredCC.value * etaj.value;
+
+  if (totalCC.value !== etajTotal.toString()) {
+    fillField(totalCC, etajTotal.toString(), false);
+  }
+}
 
 //////////////////////////////////////////////////////////
 
-                    /* PROIECTE */
+/* PROIECTE */
 
 //////////////////////////////////////////////////////////
 
@@ -914,6 +925,7 @@ async function autoInscriere({
   }
 }
 
+
 function writeValues(field, text) {
   if (field !== "") {
     if (
@@ -1024,7 +1036,6 @@ function replaceValues(field, initialText, correctedText) {
 // function writeCcValuesCT() {
 //   let measuredCC = document.querySelector('[ng-model="d10.val"]');
 //   let actCC = document.querySelector('[ng-model="d34.val"]');
-
 //   if (measuredCC && document.querySelector('[ng-model="d47.val"]')) {
 //     if (actCC.value !== measuredCC.value) {
 //       actCC.value = "";
@@ -1101,7 +1112,7 @@ async function runSearchInfo() {
   } catch (err) {
     console.error(err);
   }
-}
+};
 
 function shortcut(
   keyCode,
