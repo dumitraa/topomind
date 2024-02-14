@@ -613,6 +613,7 @@ async function searchInfo({
     return;
   }
 
+  addLoadingBarToFooter()
   let number = info[index];
 
   searchField.value = "";
@@ -682,6 +683,8 @@ async function searchInfo({
       `Skipping data processing for ${number} due to visibility issues.`
     );
   }
+
+  updateLoadingBar(index + 1, info.length);
 
   await searchInfo({
     search: search,
@@ -1114,6 +1117,79 @@ async function runSearchInfo() {
   }
 };
 
+function addLoadingBarToFooter() {
+  const footer = document.querySelector('.panel-footer');
+  if (footer) {
+    const existingLoadingBar = footer.querySelector('.loading-bar-container');
+    if (!existingLoadingBar) {
+      footer.insertAdjacentHTML('beforeend', `
+        <div class="loading-bar-container" style="
+    position: relative;
+    width: 100%; 
+    background-color: #f3f3f3; 
+    overflow: hidden;
+">
+    <div class="loading-bar" style="
+        width: 0%; 
+        height: 20px; 
+        background-color: #4CAF50; 
+        background-image: linear-gradient(
+            135deg, 
+            rgba(255, 255, 255, 0.5) 25%, 
+            transparent 25%, 
+            transparent 50%, 
+            rgba(255, 255, 255, 0.5) 50%, 
+            rgba(255, 255, 255, 0.5) 75%, 
+            transparent 75%, 
+            transparent
+        );
+        background-size: 40px 40px;
+        animation: moveBackground 2s linear infinite;
+    "></div>
+    <span class="percentage" style="
+        position: absolute; 
+        right: 0; 
+        top: 0; 
+        height: 20px; 
+        line-height: 20px;
+        padding-right: 5px;
+        color: white; 
+        font-weight: bold; 
+        text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000, 
+            -1px 1px 0 #000, 
+            1px 1px 0 #000;
+    "></span>
+</div>
+      `);
+      const style = document.createElement('style');
+      style.type = 'text/css';
+      style.innerHTML = `
+        @keyframes moveBackground {
+          from { background-position: 0 0; }
+          to { background-position: 40px 40px; }
+        }
+      `;
+      document.getElementsByTagName('head')[0].appendChild(style);
+    }
+  }
+}
+
+function updateLoadingBar(index, total) {
+  const percent = (index / total) * 100;
+  const loadingBar = document.querySelector('.loading-bar');
+  const percentageText = document.querySelector('.percentage');
+
+  if (loadingBar && percentageText) {
+    loadingBar.style.transition = 'width 0.5s ease-out';
+    loadingBar.style.width = `${percent}%`;
+
+    percentageText.textContent = `${Math.round(percent)}%`;
+  }
+}
+
+
 function shortcut(
   keyCode,
   altKey = false,
@@ -1318,22 +1394,22 @@ async function waitForElementVisible(selector, timeout = 30000) {
   const startTime = new Date().getTime();
   while (new Date().getTime() - startTime < timeout) {
     if (isVisible(selector)) {
-      return true; // Element is visible
+      return true;
     }
-    await sleep(100); // Wait for 100ms before checking again
+    await sleep(100);
   }
-  return false; // Timeout reached, element not visible
+  return false;
 }
 
 async function waitForElementNotVisible(selector, timeout = 30000) {
   const startTime = new Date().getTime();
   while (new Date().getTime() - startTime < timeout) {
     if (!isVisible(selector)) {
-      return true; // Element is not visible
+      return true;
     }
-    await sleep(100); // Wait for 100ms before checking again
+    await sleep(100);
   }
-  return false; // Timeout reached, element still visible
+  return false;
 }
 
 function dispatchEvent(element, eventType) {

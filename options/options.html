@@ -156,10 +156,14 @@
                   <br><span class="notes"> Notă: va trebui să treceți prin fiecare imobil pentru asta. Recomand deschiderea tuturor imobilelor în cauză în tab-uri separate pentru eficiență. </span>
                   </div>
                 </div>
-                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading14">
+                <h2 class="accordion-header new-feature custom-header d-flex align-items-center" id="heading14">
                   <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14">
                     <input id="searchInfo" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                    Căutare cu filtru + export CSV (tab - Parcele)
+                    Căutare avansată + export CSV
+                    <!-- NEW -->
+                      <span class="new-badge">Nou!</span>
+                      <span class="tooltip-text">Acum puteți căuta în mai multe câmpuri și să descarcați un tabel CSV la final cu informațiile necesare</span>
+                    <!-- NEW -->
                   </button>
                 </h2>
                 <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
@@ -176,7 +180,7 @@
                           <option value="[ng-model='scopeRef.d72.val']">Id. electronic</option>
                         </select>
                         <div id="checkboxGrid">
-                          <p style="margin: 2%;">Ce informații vor fi salvate</p>
+                          <p style="margin: 2%;">Ce informații vor fi salvate (în afară de informația căutată)</p>
                           <div class="checkbox-label checkGrid">
 
                             <!-- VALUE = THE INDEX OF THE TD IN THE ROW -->
@@ -213,10 +217,10 @@
                           </div>
                         </div>
                         <label for="info" required>Lista cu informațiile, separate de spațiu:</label>
-                        <textarea id="info" class="row-input project" placeholder="Scrieți aici numerele cadastrale..."></textarea>
+                        <textarea id="info" class="row-input project" placeholder="Scrieți aici..."></textarea>
                       </div>
                       <p class="notes"> Notă: Numerele se pot căuta <strong>doar</strong> în tab-ul de Parcele. Puteți copia numerele cadastrale din csv/excel și să le lipiți aici.</p>
-                      <p class="notes" <strong>Apăsați pe ALT + C în timp ce sunteți pe tab-ul de Parcele pentru a începe căutarea!</strong></p>
+                      <p class="notes"> <strong>Apăsați pe ALT + C în timp ce sunteți pe tab-ul de Parcele pentru a începe căutarea!</strong></p>
                       <!-- <p class="warning notes" style="color: red; font-size: 110%;"></p> -->
 
                     </div>

@@ -450,3 +450,54 @@ overflow-wrap: break-word
 white-space: pre-wrap;
 overflow-wrap: break-word
 }
+
+
+/* New Features CSS */
+.new-feature {
+  background-color: #4CAF50; /* Or any other bright color */
+  /* Add other styling as needed */
+}
+
+.new-badge {
+  background-color: #ffeb3b; /* bright yellow color for visibility */
+  color: black; /* text color */
+  border-radius: 5px; /* rounded corners for the badge */
+  padding: 3px 7px; /* some padding around the text */
+  font-size: 0.8em; /* smaller font size for the badge */
+  font-weight: bold; /* make the text bold */
+  margin-left: 10px; /* space between the badge and the accordion title */
+  vertical-align: middle; /* aligns the badge with the text */
+  display: inline-block; /* ensures that the badge flows with the text */
+}
+
+.accordion-header:hover .tooltip-text {
+  visibility: visible; /* Show the tooltip text when hovering */
+}
+
+.tooltip-text {
+  visibility: hidden; /* Hide the tooltip text by default */
+  width: 200px; /* Set a width for the tooltip */
+  background-color: black; /* Tooltip background */
+  color: #fff; /* Text color */
+  text-align: center; /* Center the text inside the tooltip */
+  border-radius: 6px; /* Rounded corners for the tooltip */
+  padding: 5px 0; /* Padding inside the tooltip */
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px; /* Use half of the width to center the tooltip */
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Position the arrow at the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent; /* Arrow color */
+}
