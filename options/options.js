@@ -332,11 +332,10 @@ addProjectButtons.forEach((button) => {
               }
               return el.value !== "";
             });
-
           isValidArray.push(isNotEmpty);
         });
       }
-
+      
       const isFormValid = isValidArray.every(Boolean);
       if (!isFormValid && !suppressErrors) {
         errorMsg.style.display = "block";
@@ -456,6 +455,36 @@ function refreshStorage() {
       }
     }
   });
+}
+
+function createSearchInfoObj() {
+  const elem = document.querySelector(`#searchInfoRow`);
+
+  if (elem) {
+    const values = {
+      searchChecker: document.querySelector("#searchInfo").checked,
+      search: document.querySelector(`#searchField`).value, // ng selector
+      tarla: document.querySelector(`#nrTarla`).checked, // td index
+      parcela: document.querySelector(`#nrParcela`).checked,
+      categFol: document.querySelector(`#categFol`).checked,
+      tip: document.querySelector(`#tipTeren`).checked,
+      acte: document.querySelector(`#acte`).checked,
+      proiect: document.querySelector(`#proiect`).checked,
+      imobil: document.querySelector(`#imobilID`).checked,
+      ie: document.querySelector(`#idElectronic`).checked,
+      info: document.querySelector(`#info`).value, // INFO SEPARATED BY SPACE
+    };
+
+    const allEmpty = !Object.values(values).some((value) => {
+      return typeof value === "boolean" ? value : value && value.trim() !== "";
+    });
+
+    if (!allEmpty) {
+      return values;
+    }
+
+    return null;
+  }
 }
 
 function createAutoInscriereObj(row, rowIndex) {
@@ -612,7 +641,6 @@ function createReplaceValuesObj(row, rowIndex) {
     if (!allEmpty) {
       return values;
     }
-
     return null;
   }
 }
@@ -650,6 +678,8 @@ function saveStorage() {
 
     const rows = document.querySelectorAll(".custom-row");
 
+    const searchInfoRow = document.querySelector('[id="searchInfoRow"]')
+    
     const autoInscriereRows = Array.from(rows).filter(
       (row) => row.querySelectorAll('[id^="ins"]').length > 0
     );
@@ -668,6 +698,8 @@ function saveStorage() {
     const replaceValuesRows = Array.from(rows).filter(
       (row) => row.querySelectorAll('[id^="replaceField"]').length > 0
     );
+
+    const searchInfoData = searchInfoRow ? [createSearchInfoObj()].filter(obj => obj !== null) : [];
 
     const autoInscriereData = autoInscriereRows
       .map((row, index) => createAutoInscriereObj(row, index))
@@ -691,6 +723,7 @@ function saveStorage() {
     chrome.storage.local
       .set({
         mainOptions: JSON.stringify(storageArray),
+        searchInfoData: JSON.stringify(searchInfoData),
         autoInscriereData: JSON.stringify(autoInscriereData),
         adresaData: JSON.stringify(adresaData),
         zonaCoopData: JSON.stringify(zonaCoopData),
@@ -737,17 +770,13 @@ document.addEventListener("DOMContentLoaded", refreshStorage);
 function checkVisitAndShowTab() {
   chrome.storage.local.get(["firstVisit", "sawUpdates"], function (result) {
     if (!result.firstVisit) {
-      // If it's the user's first visit
-      showTab("about"); // Show the 'about' tab
-      // Set 'firstVisit' to true and 'sawUpdates' to true as well since we're showing the 'about' tab first
+      showTab("about");
       chrome.storage.local.set({ firstVisit: true, sawUpdates: true });
     } else if (!result.sawUpdates) {
-      // If it's not the first visit, but the updates haven't been seen
-      showTab("updates"); // Show the 'updates' tab
-      chrome.storage.local.set({ sawUpdates: true }); // Set 'sawUpdates' to true
+      showTab("updates");
+      chrome.storage.local.set({ sawUpdates: true });
     } else {
-      // If it's not the first visit and updates have been seen
-      showTab("general"); // Show the 'general' tab as a default
+      showTab("general");
     }
   });
 }
@@ -810,7 +839,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.getElementById("ncList").addEventListener("paste", function (e) {
+document.getElementById("info").addEventListener("paste", function (e) {
   e.preventDefault();
 
   let clipboardData = e.clipboardData || window.clipboardData;

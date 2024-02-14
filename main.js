@@ -1,20 +1,17 @@
 //////////////////////////////////////////////////////////
 
-/* MUTATION OBSERVER */
+                  /* GET DATA FUNCTIONS */
 
 //////////////////////////////////////////////////////////
 
 function getData(data) {
-  console.log("getData called with:", data);
   return new Promise((resolve, reject) => {
     chrome.storage.local.get([data], (result) => {
       console.log("getData result for", data, "is", result);
       if (chrome.runtime.lastError) {
-        console.log("Runtime Error:", chrome.runtime.lastError);
         return reject(chrome.runtime.lastError);
       }
       if (result[data]) {
-        console.log("getData result for", data, "is", result[data]);
         const parsedData = JSON.parse(result[data]);
         return resolve(parsedData);
       }
@@ -22,6 +19,10 @@ function getData(data) {
       return resolve(null);
     });
   });
+}
+
+function getSearchInfoData() {
+  return getData("searchInfoData");
 }
 
 function getAutoInscriereData() {
@@ -67,6 +68,12 @@ function getStorageItem(key) {
     });
   });
 }
+
+//////////////////////////////////////////////////////////
+
+                /* LOGIC FOR FUNCTIONS */
+
+//////////////////////////////////////////////////////////
 
 const constructiiLogic = async () => {
   try {
@@ -251,6 +258,12 @@ const generalLogic = async () => {
   }
 };
 
+//////////////////////////////////////////////////////////
+
+           /* MUTATION OBSERVER & INTERVALS */
+
+//////////////////////////////////////////////////////////
+
 const intervals = {
   general: {
     pattern: "canvas",
@@ -355,7 +368,7 @@ observer.observe(document.body, {
 
 //////////////////////////////////////////////////////////
 
-/* FUNCTII GENERALE */
+                  /* FUNCTII GENERALE */
 
 //////////////////////////////////////////////////////////
 
@@ -380,11 +393,12 @@ if (shortcutsCheck) {
   shortcut(13, false, false, '[ng-click="confirmationScope.ok()"]', "focus");
 }
 
-const findNcCheck = async () => {
-  await getStorageItem("findNc");
+
+const searchInfoCheck = async () => {
+  await getStorageItem("searchInfo");
 };
 
-if (findNcCheck) {
+if (searchInfoCheck) {
   shortcut(67, true, false, '[ng-model="scopeRef.d75.val"]', "focus", true);
 }
 
@@ -396,6 +410,20 @@ function writeEtaj() {
     fillField(etaj, "1", false);
   }
 }
+
+
+function writeCcX3() {
+  let measuredCC = document.querySelector('[ng-model="d10.val"]');
+  let totalCC = document.querySelector('[ng-model="d13.val"]');
+  let etaj = document.querySelector('[ng-model="d20.val"]');
+
+  let etajTotal = measuredCC.value * etaj.value;
+
+  if (totalCC.value !== etajTotal.toString()) {
+    fillField(totalCC, etajTotal.toString(), false);
+  }
+}
+
 
 function deleteSectionOne() {
   let option = document.querySelector(
@@ -494,6 +522,181 @@ async function writeQuota() {
 //     }, 1000);
 //   }
 // }
+
+let notFoundCsv = "";
+let foundCsv = "";
+let foundNumbers = 0;
+let notFoundNumbers = 0;
+
+async function searchInfo({
+  search,
+  tarla = false,
+  parcela = false,
+  categFol = false,
+  tip = null,
+  acte = false,
+  proiect = false,
+  imobil = false,
+  ie = false,
+  info,
+  index = 0,
+} = {}) {
+
+  let searchField = search ? document.querySelector(search) : null;
+
+  if (index >= info.length) {
+    let foundBlob = new Blob([foundCsv], { type: "text/csv" });
+    let foundCsvURL = URL.createObjectURL(foundBlob);
+
+    let notFoundBlob = new Blob([notFoundCsv], { type: "text/csv" });
+    let notFoundCsvURL = URL.createObjectURL(notFoundBlob);
+
+    let gasiteFileName = "gasite.csv";
+    let negasiteFileName = "negasite.csv";
+
+    document.body.insertAdjacentHTML(
+      "beforeend",
+      `
+          <div class="modal fade" id="ModalCenter" tabindex="1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="ModalCenterTitle">Căutare completă</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+        <div class="modal-body">
+            <div class="row">
+        <div class="col-md-6">
+            <div id="notFound" style="text-align: center;">${notFoundNumbers} negăsit/e</div>
+            <table class="table">
+                <thead>
+                    <tr style="text-align: center;">
+                    <th><a href="${notFoundCsvURL}" download="${negasiteFileName}" class="btn btn-primary">Descarcă CSV</a></th>
+                    </tr>
+                </thead>
+                <tbody id="notFoundList"></tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-6">
+            <div id="found"style="text-align: center;">${foundNumbers} găsit/e</div>
+            <table class="table">
+                <thead>
+                    <tr style="text-align: center;">
+                    <th><a href="${foundCsvURL}" download="${gasiteFileName}" class="btn btn-primary">Descarcă CSV</a></th>
+                    </tr>
+                </thead>
+                <tbody id="foundList"></tbody>
+            </table>
+        </div>
+            </div>
+        </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Închide</button>
+              </div>
+            </div>
+          </div>
+        </div>        
+          `
+    );
+
+    $("#ModalCenter").modal("show");
+
+    notFoundCsv = "";
+    foundCsv = "";
+    foundNumbers = 0;
+    notFoundNumbers = 0;
+
+    return;
+  }
+
+  let number = info[index];
+
+  searchField.value = "";
+  await fillFieldNc(searchField, number, false);
+  unfocusBox(searchField);
+
+  const isVisible = await waitForElementVisible("#loading-bar");
+  const isNotVisible = await waitForElementNotVisible("#loading-bar");
+
+  if (isVisible && isNotVisible) {
+    let currentRowCount = document.querySelectorAll("tr").length;
+
+    if (currentRowCount <= 1) {
+      if (notFoundCsv === "") {
+        notFoundCsv += "Informatie negasita" + "\n";
+      }
+      notFoundCsv += info[index] + "\n";
+      notFoundNumbers++;
+    }
+
+    let rows = document.querySelectorAll("tr");
+    // check if arguments are true, if yes, create a string csv with the appropriate headers
+    if (
+      tarla ||
+      parcela ||
+      categFol ||
+      tip ||
+      acte ||
+      proiect ||
+      imobil ||
+      ie
+    ) {
+      // check if csv exists, if not, create it
+      if (foundCsv === "") {
+        foundCsv += "Informatie cautata, ";
+        if (tarla) foundCsv += "Tarla,";
+        if (parcela) foundCsv += "Parcela,";
+        if (categFol) foundCsv += "Categorie de Folosinta,";
+        if (tip) foundCsv += "Tip teren,";
+        if (acte) foundCsv += "Acte,";
+        if (proiect) foundCsv += "Nume proiect,";
+        if (imobil) foundCsv += "Imobil ID,";
+        if (ie) foundCsv += "Identificator Electronic,";
+        foundCsv += "\n";
+      }
+      // loop through the rows and create a string csv with the appropriate values
+      for (let i = 1; i < rows.length; i++) {
+        let row = rows[i];
+        let cells = row.querySelectorAll("td");
+        if (cells.length > 0) {
+          foundCsv += number + ",";
+          if (tarla) foundCsv += cells[1].textContent + ",";
+          if (parcela) foundCsv += cells[6].textContent + ",";
+          if (categFol) foundCsv += cells[10].textContent + ",";
+          if (tip) foundCsv += cells[13].textContent + ",";
+          if (acte) foundCsv += cells[17].textContent + ",";
+          if (proiect) foundCsv += cells[18].textContent + ",";
+          if (imobil) foundCsv += cells[19].textContent + ",";
+          if (ie) foundCsv += cells[20].textContent + ",";
+          foundCsv += "\n";
+          foundNumbers++;
+        }
+      }
+    }
+  } else {
+    console.log(
+      `Skipping data processing for ${number} due to visibility issues.`
+    );
+  }
+
+  await searchInfo({
+    search: search,
+    tarla: tarla,
+    parcela: parcela,
+    categFol: categFol,
+    tip: tip,
+    acte: acte,
+    proiect: proiect,
+    imobil: imobil,
+    ie: ie,
+    info: info,
+    index: index + 1,
+  });
+}
 
 function addRowClickListener(row) {
   const checkbox = row.querySelector('td input[type="checkbox"]');
@@ -610,7 +813,7 @@ function selectImpr(project) {
 
 //////////////////////////////////////////////////////////
 
-/* PERSONALIZARI */
+                  /* PERSONALIZARI */
 
 //////////////////////////////////////////////////////////
 
@@ -722,6 +925,19 @@ async function autoInscriere({
   }
 }
 
+
+function writeValues(field, text) {
+  if (field !== "") {
+    if (
+      document.querySelector(`${field}`) &&
+      document.querySelector(`${field}`).value.trim() === ""
+    ) {
+      let myField = document.querySelector(`${field}`);
+      fillField(myField, `${text}`, false);
+    }
+  }
+}
+
 function replaceValues(field, initialText, correctedText) {
   if (field !== "") {
     if (document.querySelector(`${field}`)) {
@@ -739,167 +955,162 @@ function replaceValues(field, initialText, correctedText) {
   }
 }
 
-function writeValues(field, text) {
-  if (field !== "") {
-    if (
-      document.querySelector(`${field}`) &&
-      document.querySelector(`${field}`).value.trim() === ""
-    ) {
-      let myField = document.querySelector(`${field}`);
-      fillField(myField, `${text}`, false);
-    }
-  }
-}
+
 
 //////////////////////////////////////////////////////////
 
-/* UAT FUNCTIONS */
+              /* UAT FUNCTIONS - UNUSABLE */
 
 //////////////////////////////////////////////////////////
 
 // BRAILA
-function writeCcValuesBR() {
-  if (getJudetName() === "Braila") {
-    let measuredCC = document.querySelector('[ng-model="d10.val"]');
-    let actCC = document.querySelector('[ng-model="d34.val"]');
-    let totalCC = document.querySelector('[ng-model="d13.val"]');
-    let etaj = document.querySelector('[ng-model="d20.val"]');
-    let tax = document.querySelector('[ng-model="d26.val"]');
+// function writeCcValuesBR() {
+//   if (getJudetName() === "Braila") {
+//     let measuredCC = document.querySelector('[ng-model="d10.val"]');
+//     let actCC = document.querySelector('[ng-model="d34.val"]');
+//     let totalCC = document.querySelector('[ng-model="d13.val"]');
+//     let etaj = document.querySelector('[ng-model="d20.val"]');
+//     let tax = document.querySelector('[ng-model="d26.val"]');
 
-    let etajTotal = measuredCC.value * etaj.value;
+//     let etajTotal = measuredCC.value * etaj.value;
 
-    if (actCC.value === "0") {
-      fillField(actCC, " ", false);
-    } else if (measuredCC.value !== "") {
-      if (
-        totalCC.value !== etajTotal.toString() ||
-        measuredCC.value !== totalCC.value
-      ) {
-        fillField(actCC, totalCC.value, false).then(() => {
-          fillField(totalCC, etajTotal.toString(), false);
+//     if (actCC.value === "0") {
+//       fillField(actCC, " ", false);
+//     } else if (measuredCC.value !== "") {
+//       if (
+//         totalCC.value !== etajTotal.toString() ||
+//         measuredCC.value !== totalCC.value
+//       ) {
+//         fillField(actCC, totalCC.value, false).then(() => {
+//           fillField(totalCC, etajTotal.toString(), false);
+//         });
+//       }
+//     }
+
+//     if (tax.value === "0" && actCC.value.trim() === "") {
+//       fillField(tax, " ", false);
+//     } else if (actCC.value.trim() !== "" && tax.value !== "0") {
+//       fillField(tax, "0", false);
+//     }
+//   }
+// }
+
+// function writeTipCladireBR() {
+//   if (
+//     isProvizoriu() &&
+//     document.querySelector('[ng-model="d30.val"].ng-empty') &&
+//     getJudetName() === "Braila"
+//   ) {
+//     toggleLegal('[ng-model="d30.val"].ng-not-empty', false);
+//   }
+
+//   const uncheckedLegal = document.querySelector(
+//     '[ng-model="d30.val"].ng-empty'
+//   );
+//   const selectElement = document.querySelector(
+//     '.form-select[ng-model="d16.val"]'
+//   );
+//   let selectedText = selectElement.options[selectElement.selectedIndex].text;
+//   let constrField = document.querySelector('[ng-model="d54.val"]');
+
+//   if (uncheckedLegal && constrField.value === "") {
+//     fillField(constrField, selectedText, false);
+//   }
+// }
+
+// function fillInMeasuredParcelBR() {
+//   if (getJudetName() === "Braila") {
+//     if (document.querySelector('[ng-model="scopeRef.d53.val"]')) {
+//       let suprAct = document.querySelector('[ng-model="scopeRef.d47.val"]');
+//       let suprMas = document.querySelector('[ng-model="scopeRef.d50.val"]');
+//       if (suprMas) {
+//         if (suprMas.value == "" || suprMas.value === "0") {
+//           copyValue(suprMas, suprAct);
+//         }
+//       }
+//     }
+//   }
+// }
+
+// // CONSTANTA
+// function writeCcValuesCT() {
+//   let measuredCC = document.querySelector('[ng-model="d10.val"]');
+//   let actCC = document.querySelector('[ng-model="d34.val"]');
+//   if (measuredCC && document.querySelector('[ng-model="d47.val"]')) {
+//     if (actCC.value !== measuredCC.value) {
+//       actCC.value = "";
+//       fillField(actCC, measuredCC.value, false);
+//     }
+//   }
+// }
+
+// function fillInMeasuredParcelCT() {
+//   if (getJudetName() === "Constanta") {
+//     if (document.querySelector('[ng-model="scopeRef.d53.val"]')) {
+//       let suprfAct = document.querySelector('[ng-model="d72.val"]');
+//       let suprfMas = document.querySelector('[ng-model="d69.val"]');
+
+//       if (suprfMas.value !== suprfAct.value) {
+//         if (suprfMas && suprfMas.value == "") {
+//           copyValue(suprfMas, suprfAct);
+//         } else if (suprfAct && suprfAct.value == "") {
+//           copyValue(suprfAct, suprfMas);
+//         } else if (
+//           suprfMas &&
+//           (suprfMas.value == "" || suprfMas.value === "0")
+//         ) {
+//           copyValue(suprfMas, suprfAct);
+//         } else if (
+//           suprfAct &&
+//           (suprfAct.value == "" || suprfAct.value === "0")
+//         ) {
+//           copyValue(suprfAct, suprfMas);
+//         }
+//       }
+//     }
+
+//     // suprafata parcelelor
+//     let suprAct = document.querySelector('[ng-model="scopeRef.d47.val"]');
+//     let suprMas = document.querySelector('[ng-model="scopeRef.d50.val"]');
+//     if (document.querySelector('[ng-model="scopeRef.d53.val"]')) {
+//       if (suprMas && suprMas.value !== suprAct.value) {
+//         if (suprMas.value == "" || suprMas.value === "0") {
+//           copyValue(suprMas, suprAct);
+//         }
+//       }
+//     }
+//   }
+// }
+
+//////////////////////////////////////////////////////////
+
+            /* GENERAL HELPER FUNCTIONS */
+
+//////////////////////////////////////////////////////////
+
+async function runSearchInfo() {
+  try {
+    const searchInfoData = await getSearchInfoData();
+    if (searchInfoData) {
+      const validData = searchInfoData.filter(data => data !== null && data.searchChecker);
+      validData.forEach(data => {
+        searchInfo({
+          search: data.search,
+          tarla: data.tarla,
+          parcela: data.parcela,
+          categFol: data.categFol,
+          tip: data.tip,
+          acte: data.acte,
+          proiect: data.proiect,
+          imobil: data.imobil,
+          ie: data.ie,
+          info: data.info.split(" ").map((x) => x.trim()),
+          index: 0,
         });
-      }
+      });
     }
-
-    if (tax.value === "0" && actCC.value.trim() === "") {
-      fillField(tax, " ", false);
-    } else if (actCC.value.trim() !== "" && tax.value !== "0") {
-      fillField(tax, "0", false);
-    }
-  }
-}
-
-function writeTipCladireBR() {
-  if (
-    isProvizoriu() &&
-    document.querySelector('[ng-model="d30.val"].ng-empty') &&
-    getJudetName() === "Braila"
-  ) {
-    toggleLegal('[ng-model="d30.val"].ng-not-empty', false);
-  }
-
-  const uncheckedLegal = document.querySelector(
-    '[ng-model="d30.val"].ng-empty'
-  );
-  const selectElement = document.querySelector(
-    '.form-select[ng-model="d16.val"]'
-  );
-  let selectedText = selectElement.options[selectElement.selectedIndex].text;
-  let constrField = document.querySelector('[ng-model="d54.val"]');
-
-  if (uncheckedLegal && constrField.value === "") {
-    fillField(constrField, selectedText, false);
-  }
-}
-
-function fillInMeasuredParcelBR() {
-  if (getJudetName() === "Braila") {
-    if (document.querySelector('[ng-model="scopeRef.d53.val"]')) {
-      let suprAct = document.querySelector('[ng-model="scopeRef.d47.val"]');
-      let suprMas = document.querySelector('[ng-model="scopeRef.d50.val"]');
-      if (suprMas) {
-        if (suprMas.value == "" || suprMas.value === "0") {
-          copyValue(suprMas, suprAct);
-        }
-      }
-    }
-  }
-}
-
-// CONSTANTA
-function writeCcValuesCT() {
-  let measuredCC = document.querySelector('[ng-model="d10.val"]');
-  let actCC = document.querySelector('[ng-model="d34.val"]');
-
-  if (measuredCC && document.querySelector('[ng-model="d47.val"]')) {
-    if (actCC.value !== measuredCC.value) {
-      actCC.value = "";
-      fillField(actCC, measuredCC.value, false);
-    }
-  }
-}
-
-function fillInMeasuredParcelCT() {
-  if (getJudetName() === "Constanta") {
-    if (document.querySelector('[ng-model="scopeRef.d53.val"]')) {
-      let suprfAct = document.querySelector('[ng-model="d72.val"]');
-      let suprfMas = document.querySelector('[ng-model="d69.val"]');
-
-      if (suprfMas.value !== suprfAct.value) {
-        if (suprfMas && suprfMas.value == "") {
-          copyValue(suprfMas, suprfAct);
-        } else if (suprfAct && suprfAct.value == "") {
-          copyValue(suprfAct, suprfMas);
-        } else if (
-          suprfMas &&
-          (suprfMas.value == "" || suprfMas.value === "0")
-        ) {
-          copyValue(suprfMas, suprfAct);
-        } else if (
-          suprfAct &&
-          (suprfAct.value == "" || suprfAct.value === "0")
-        ) {
-          copyValue(suprfAct, suprfMas);
-        }
-      }
-    }
-
-    // suprafata parcelelor
-    let suprAct = document.querySelector('[ng-model="scopeRef.d47.val"]');
-    let suprMas = document.querySelector('[ng-model="scopeRef.d50.val"]');
-    if (document.querySelector('[ng-model="scopeRef.d53.val"]')) {
-      if (suprMas && suprMas.value !== suprAct.value) {
-        if (suprMas.value == "" || suprMas.value === "0") {
-          copyValue(suprMas, suprAct);
-        }
-      }
-    }
-  }
-}
-
-//////////////////////////////////////////////////////////
-
-/* GENERAL HELPER FUNCTIONS */
-
-//////////////////////////////////////////////////////////
-
-const findNcValues = async () => {
-  try {
-    const ncListValue = await getStorageItem("ncList");
-    return ncListValue;
-  } catch (error) {
-    console.error("Error fetching ncList:", error);
-    throw error;
-  }
-};
-
-const ncField = async () => {
-  try {
-    const ncFieldValue = await getStorageItem("searchInfo");
-    return ncFieldValue;
-  } catch (error) {
-    console.error("Error fetching ncList:", error);
-    throw error;
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -936,11 +1147,12 @@ function shortcut(
           event.altKey === altKey &&
           keyCode === 67 &&
           findNc &&
-          findNcCheck
+          searchInfoCheck
         ) {
           event.stopPropagation();
           event.preventDefault();
-          searchDOMForNumbers(findNcValues, ncField, 0, true, true);
+
+          runSearchInfo();
         }
       }
     }
@@ -1095,6 +1307,35 @@ function toggleLegal(selector, shouldCheck = true) {
   }
 }
 
+function isVisible(selector) {
+  const el = document.querySelector(selector);
+  return (
+    el && !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length)
+  );
+}
+
+async function waitForElementVisible(selector, timeout = 30000) {
+  const startTime = new Date().getTime();
+  while (new Date().getTime() - startTime < timeout) {
+    if (isVisible(selector)) {
+      return true; // Element is visible
+    }
+    await sleep(100); // Wait for 100ms before checking again
+  }
+  return false; // Timeout reached, element not visible
+}
+
+async function waitForElementNotVisible(selector, timeout = 30000) {
+  const startTime = new Date().getTime();
+  while (new Date().getTime() - startTime < timeout) {
+    if (!isVisible(selector)) {
+      return true; // Element is not visible
+    }
+    await sleep(100); // Wait for 100ms before checking again
+  }
+  return false; // Timeout reached, element still visible
+}
+
 function dispatchEvent(element, eventType) {
   var event = new Event(eventType);
   element.dispatchEvent(event);
@@ -1107,55 +1348,6 @@ function unfocusBox(searchBox) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-let ncNotFound = "";
-
-async function searchDOMForNumbers(
-  list,
-  field,
-  index = 0,
-  listYa = false,
-  fieldYa = false
-) {
-  if (listYa) {
-    let num = await list();
-    var numbers = num.split(" ").map((x) => x.trim());
-  } else {
-    var numbers = list;
-  }
-
-  if (fieldYa) {
-    var fieldz = await field();
-  } else {
-    var fieldz = field;
-  }
-
-  let searchBox = document.querySelector(fieldz);
-
-  if (index >= numbers.length) {
-    if (ncNotFound === "") {
-      alert("Felicitări! Toate NC-urile introduse au fost găsite.");
-    } else
-      alert(`Următoarele numere cadastrale nu au fost găsite:${ncNotFound}`);
-    return;
-  }
-
-  let number = numbers[index];
-
-  searchBox.value = "";
-  await fillFieldNc(searchBox, number, false);
-  unfocusBox(searchBox);
-
-  await sleep(1500);
-
-  let currentRowCount = document.querySelectorAll("tr").length;
-
-  if (currentRowCount <= 1) {
-    ncNotFound += " " + number;
-    console.log(ncNotFound);
-  }
-  await searchDOMForNumbers(numbers, fieldz, index + 1);
 }
 
 function fillFieldNc(element, value) {

@@ -58,135 +58,177 @@
           </div>
         </div>
                 <!-- TAB ONE - GENERAL -->
-                <div class="tab-pane fade" id="general" role="tabpanel">
-                    <div class="accordion" id="settingsAccordion">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading1">
-                          <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
-                          <input type="checkbox" id="shortcuts" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Scurtături de tastatură
-                          </button>
-                        </h2>
-                        <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                          <div class="accordion-body">
-                            <div class="shortcut">
-                              <span class="key">ALT</span> + <span class="key">S</span> : SALVEAZĂ
-                            </div>
-                            <div class="shortcut">
-                              <span class="key">ALT</span> + <span class="key">V</span> : VALIDEAZĂ IMOBILUL
-                            </div>
-                            <div class="shortcut">
-                              <span class="key">ALT</span> + <span class="key">D</span> : VIZUALIZEAZĂ ACTUL
-                            </div>
-                            <div class="shortcut">
-                              <span class="key">SHIFT</span> + <span class="key"><</span> : IMOBILUL ANTERIOR
-                            </div>
-                            <div class="shortcut">
-                              <span class="key">SHIFT</span> + <span class="key">></span> : IMOBILUL URMĂTOR
-                            </div>
-                            <div class="shortcut">
-                              <span class="key">ENTER</span> : CONFIRMARE (ALERT)
-                            </div>
+          <div class="tab-pane fade" id="general" role="tabpanel">
+            <div class="accordion" id="settingsAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading1">
+                  <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                  <input type="checkbox" id="shortcuts" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Scurtături de tastatură
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    <div class="shortcut">
+                      <span class="key">ALT</span> + <span class="key">S</span> : SALVEAZĂ
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">ALT</span> + <span class="key">V</span> : VALIDEAZĂ IMOBILUL
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">ALT</span> + <span class="key">D</span> : VIZUALIZEAZĂ ACTUL
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">SHIFT</span> + <span class="key"><</span> : IMOBILUL ANTERIOR
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">SHIFT</span> + <span class="key">></span> : IMOBILUL URMĂTOR
+                    </div>
+                    <div class="shortcut">
+                      <span class="key">ENTER</span> : CONFIRMARE (ALERT)
+                    </div>
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading2">
+                  <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                  <input type="checkbox" id="writeEtaj" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Completare automată nr. etaje cu "1"
+                  </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Dacă câmpul "NR. ETAJE" este gol sau "0", se va completa automat cu "1".
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading3">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                    <input type="checkbox" id="writeCC3" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Suprafața totală construcții = suprafața măsurată * nr. etaje
+                  </button>
+                </h2>
+                  <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                    <div class="accordion-body">
+                      Câmpul suprafeței totale a construcției va fi completată cu suprafața măsurată înmulțită cu numărul de etaje.
+                    </div>
+                  </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading4">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                    <input type="checkbox" class="form-check-input me-3" id="addBNPToEmitent" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Adăugare "BNP" la emitentul actului notarial.
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Dacă emitenul actului notarial nu conține "BNP" sau alte valori similare (precum BIN, SNP, NP, etc.), se va adăuga automat.
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading5">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                    <input type="checkbox" id="quota" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Completare automată cote
+                  </button>
+                  </h2>
+                  <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                    <div class="accordion-body">
+                      Pentru înscrierile cu tipul de înregistrare corect, se vor completa automat cotele cu valoarea de "1/1".
+                    </div>
+                  </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading6">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                    <input id="deleteSectionOne" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Ștergere "1" din înscrieri, câmpul "secțiune carte funciară"
+                  </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Pentru a minimiza erorile, se va omite opțiunea de a alege secțiunea 1 din cartea funciară, la înscrieri.
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading7">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
+                    <input id="copyNcIe" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Copiere Nr. Carte -> IE
+                  </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="accordion-body">
+                    Pentru a importa CGXML-urile în aplicație și a evita erorile, se va copia automat numărul cărții funciare în câmpul "identificator electronic".<br>
+                  <br><span class="notes"> Notă: va trebui să treceți prin fiecare imobil pentru asta. Recomand deschiderea tuturor imobilelor în cauză în tab-uri separate pentru eficiență. </span>
+                  </div>
+                </div>
+                <h2 class="accordion-header custom-header d-flex align-items-center" id="heading14">
+                  <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14">
+                    <input id="searchInfo" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
+                    Căutare cu filtru + export CSV (tab - Parcele)
+                  </button>
+                </h2>
+                <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
+                  <div class="rowContainer accordion-body">
+                    <div class="project-container" data-row-type="multi">
+                      <div class="custom-row column" id="searchInfoRow">
+                        <select id="searchField">
+
+                          <!-- IN PROGRESS -->
+                          <option value="" selected required disabled>Câmpul în care se vor căuta informațiile</option>
+                          <option value="[ng-model='scopeRef.d22.val']">Nr. Parcelă</option>
+                          <option value="[ng-model='scopeRef.d19.val']">Nr. carte</option>
+                          <option value="[ng-disabled='scopeRef.d66.ro']">Imobil (ID)</option>
+                          <option value="[ng-model='scopeRef.d72.val']">Id. electronic</option>
+                        </select>
+                        <div id="checkboxGrid">
+                          <p style="margin: 2%;">Ce informații vor fi salvate</p>
+                          <div class="checkbox-label checkGrid">
+
+                            <!-- VALUE = THE INDEX OF THE TD IN THE ROW -->
+                            <input id="nrTarla" type="checkbox" value="1" class="row-checkbox grid" />
+                            <label for="nrTarla" id="nrTarlaLabel" style="font-size: 150%;" class="checkbox-text grid-text">Nr. Tarla</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="nrParcela" type="checkbox" value="6" class="row-checkbox grid" />
+                            <label for="nrParcela" id="nrParcelaLabel" style="font-size: 150%;" class="checkbox-text grid-text">Nr. Parcelă</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="categFol" type="checkbox" value="10" class="row-checkbox grid" />
+                            <label for="categFol" id="categFolLabel" style="font-size: 150%;" class="checkbox-text grid-text">Categorie de folosință</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="tipTeren" type="checkbox" value="13" class="row-checkbox grid" />
+                            <label for="tipTeren" id="tipTerenLabel" style="font-size: 150%;" class="checkbox-text grid-text">Tip (I/E)</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="acte" type="checkbox" value="17" class="row-checkbox grid" />
+                            <label for="acte" id="acteLabel" style="font-size: 150%;" class="checkbox-text grid-text">Acte</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="proiect" type="checkbox" value="18" class="row-checkbox grid" />
+                            <label for="proiect" id="proiectLabel" style="font-size: 150%;" class="checkbox-text grid-text">Proiect</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="imobilID" type="checkbox" value="19" class="row-checkbox grid" />
+                            <label for="imobilID" id="imobilLabel" style="font-size: 150%;" class="checkbox-text grid-text">Imobil/ID</label>
+                          </div>
+                          <div class="checkbox-label checkGrid">
+                            <input id="idElectronic" type="checkbox" value="20" class="row-checkbox grid" />
+                            <label for="idElectronic" id="ieLabel" style="font-size: 150%;" class="checkbox-text grid-text">Identificator Electronic</label>
                           </div>
                         </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading2">
-                          <button class="accordion-button flex-grow-1 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-                          <input type="checkbox" id="writeEtaj" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Completare automată nr. etaje cu "1"
-                          </button>
-                        </h2>
-                        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                          <div class="accordion-body">
-                            Dacă câmpul "NR. ETAJE" este gol sau "0", se va completa automat cu "1".
-                          </div>
-                        </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading3">
-                          <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-                            <input type="checkbox" id="writeCC3" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Suprafața totală construcții = suprafața măsurată * nr. etaje
-                          </button>
-                        </h2>
-                          <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                            <div class="accordion-body">
-                              Câmpul suprafeței totale a construcției va fi completată cu suprafața măsurată înmulțită cu numărul de etaje.
-                            </div>
-                          </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading4">
-                          <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
-                            <input type="checkbox" class="form-check-input me-3" id="addBNPToEmitent" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Adăugare "BNP" la emitentul actului notarial.
-                          </button>
-                        </h2>
-                        <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                          <div class="accordion-body">
-                            Dacă emitenul actului notarial nu conține "BNP" sau alte valori similare (precum BIN, SNP, NP, etc.), se va adăuga automat.
-                          </div>
-                        </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading5">
-                          <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
-                            <input type="checkbox" id="quota" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Completare automată cote
-                          </button>
-                          </h2>
-                          <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                            <div class="accordion-body">
-                              Pentru înscrierile cu tipul de înregistrare corect, se vor completa automat cotele cu valoarea de "1/1".
-                            </div>
-                          </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading6">
-                          <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
-                            <input id="deleteSectionOne" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Ștergere "1" din înscrieri, câmpul "secțiune carte funciară"
-                          </button>
-                        </h2>
-                        <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                          <div class="accordion-body">
-                            Pentru a minimiza erorile, se va omite opțiunea de a alege secțiunea 1 din cartea funciară, la înscrieri.
-                          </div>
-                        </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading7">
-                          <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7">
-                            <input id="copyNcIe" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Copiere Nr. Carte -> IE
-                          </button>
-                        </h2>
-                        <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                          <div class="accordion-body">
-                            Pentru a importa CGXML-urile în aplicație și a evita erorile, se va copia automat numărul cărții funciare în câmpul "identificator electronic".<br>
-                          <br><span class="notes"> Notă: va trebui să treceți prin fiecare imobil pentru asta. Recomand deschiderea tuturor imobilelor în cauză în tab-uri separate pentru eficiență. </span>
-                          </div>
-                        </div>
-                        <h2 class="accordion-header custom-header d-flex align-items-center" id="heading14">
-                          <button class="accordion-button flex-grow-1 collapsed" style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14">
-                            <input id="findNc" type="checkbox" class="form-check-input me-3" style="margin-top: 0;" data-bs-toggle="collapse">
-                            Căutare NC/IE multiple în aplicatie
-                          </button>
-                        </h2>
-                        <div id="collapse14" class="accordion-collapse collapse" data-bs-parent="#settingsAccordion">
-                          <div class="rowContainer accordion-body">
-                            <div class="project-container" data-row-type="multi">
-                              <div class="custom-row column">
-                                <select id="searchField">
-                                  <option value="" selected>Câmpul în care se vor căuta numerele (tab-ul de parcele)</option>
-                                  <option value="[ng-model='scopeRef.d19.val']">Nr. carte</option>
-                                  <option value="[ng-model='scopeRef.d72.val']">Id. electronic</option>
-                                </select>
-                                <label for="ncList">Lista cu numerele cadastrale, separate de spațiu:</label>
-                                <textarea id="ncList" class="row-input project" placeholder="Scrieți aici numerele cadastrale..."></textarea>
-                              </div>
-                              <p class="notes"> Notă: Numerele se pot căuta <strong>doar</strong> în tab-ul de Parcele. Puteți copia numerele cadastrale din csv/excel și să le lipiți aici.</p>
-                              <strong><p class="notes">Apăsați pe ALT + C în timp ce sunteți pe tab-ul de Parcele pentru a începe căutarea!</p></strong>
-                              <!-- <p class="warning notes" style="color: red; font-size: 110%;"></p> -->
-                            </div>
-                          </div>
-                        </div>
-                        <p class="notes" style="font-size: 100%"> Notă: Toate valorile completate automat pot fi modificate ulterior.</p>
+                        <label for="info" required>Lista cu informațiile, separate de spațiu:</label>
+                        <textarea id="info" class="row-input project" placeholder="Scrieți aici numerele cadastrale..."></textarea>
                       </div>
-                      <button class="btn btn-primary mt-4 saveBtn">Salvează setările</button>
-                      <p class="success">Setările au fost salvate cu succes!</p>
-                      <p class="error save">Setările nu au fost salvate! Vă rog să încercați din nou!</p>
+                      <p class="notes"> Notă: Numerele se pot căuta <strong>doar</strong> în tab-ul de Parcele. Puteți copia numerele cadastrale din csv/excel și să le lipiți aici.</p>
+                      <p class="notes" <strong>Apăsați pe ALT + C în timp ce sunteți pe tab-ul de Parcele pentru a începe căutarea!</strong></p>
+                      <!-- <p class="warning notes" style="color: red; font-size: 110%;"></p> -->
+
+                    </div>
+                  </div>
+                </div>
+                <p class="notes" style="font-size: 100%"> Notă: Toate valorile completate automat pot fi modificate ulterior.</p>
               </div>
-            </div>
+              <button class="btn btn-primary mt-4 saveBtn">Salvează setările</button>
+              <p class="success">Setările au fost salvate cu succes!</p>
+              <p class="error save">Setările nu au fost salvate! Vă rog să încercați din nou!</p>
+      </div>
+    </div>
 
         <!-- TAB TWO - PROJECTS -->
               <div class="tab-pane fade" id="proiecte" role="tabpanel">
