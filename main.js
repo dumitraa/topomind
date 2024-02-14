@@ -4,94 +4,48 @@
 
 //////////////////////////////////////////////////////////
 
-function getAutoInscriereData() {
+function getData(data) {
+  console.log("getData called with:", data);
   return new Promise((resolve, reject) => {
-    chrome.storage.local.get(["autoInscriereData"], (result) => {
+    chrome.storage.local.get([data], (result) => {
+      console.log("getData result for", data, "is", result);
       if (chrome.runtime.lastError) {
+        console.log("Runtime Error:", chrome.runtime.lastError);
         return reject(chrome.runtime.lastError);
       }
-      if (result.autoInscriereData) {
-        const parsedData = JSON.parse(result.autoInscriereData);
+      if (result[data]) {
+        console.log("getData result for", data, "is", result[data]);
+        const parsedData = JSON.parse(result[data]);
         return resolve(parsedData);
       }
+      console.log("getData result for", data, "is null");
       return resolve(null);
     });
   });
+}
+
+function getAutoInscriereData() {
+  return getData("autoInscriereData ");
 }
 
 function getAdresaData() {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(["adresaData"], (result) => {
-      if (chrome.runtime.lastError) {
-        return reject(chrome.runtime.lastError);
-      }
-      if (result.adresaData) {
-        const parsedData = JSON.parse(result.adresaData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  return getData("adresaData");
 }
 
 function getZonaCoopData() {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(["zonaCoopData"], (result) => {
-      if (chrome.runtime.lastError) {
-        return reject(chrome.runtime.lastError);
-      }
-      if (result.zonaCoopData) {
-        const parsedData = JSON.parse(result.zonaCoopData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  return getData("zonaCoopData");
 }
 
 function getZonaImprData() {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(["zonaImprData"], (result) => {
-      if (chrome.runtime.lastError) {
-        return reject(chrome.runtime.lastError);
-      }
-      if (result.zonaImprData) {
-        const parsedData = JSON.parse(result.zonaImprData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  return getData("zonaImprData");
 }
 
 function getWriteValuesData() {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(["writeValuesData"], (result) => {
-      if (chrome.runtime.lastError) {
-        return reject(chrome.runtime.lastError);
-      }
-      if (result.writeValuesData) {
-        const parsedData = JSON.parse(result.writeValuesData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  return getData("writeValuesData");
 }
 
 function getReplaceValuesData() {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(["replaceValuesData"], (result) => {
-      if (chrome.runtime.lastError) {
-        return reject(chrome.runtime.lastError);
-      }
-      if (result.replaceValuesData) {
-        const parsedData = JSON.parse(result.replaceValuesData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  return getData("replaceValuesData");
 }
 
 function getStorageItem(key) {
@@ -299,8 +253,8 @@ const generalLogic = async () => {
 
 const intervals = {
   general: {
-    pattern: "<",
-    selector: "body",
+    pattern: "canvas",
+    selector: "canvas",
     isActive: false,
     fn: generalLogic,
     interval: null,
