@@ -1095,7 +1095,7 @@ async function runSearchInfo() {
     const searchInfoData = await getSearchInfoData();
     console.log(searchInfoData);
     if (searchInfoData) {
-      const validData = searchInfoData.filter(data => data !== null && data.checker);
+      const validData = searchInfoData.filter(data => data !== null && data.searchChecker);
       console.log(validData);
       validData.forEach(data => {
         searchInfo({

@@ -463,6 +463,7 @@ function createSearchInfoObj() {
 
   if (elem) {
     const values = {
+      searchChecker: document.querySelector("#searchInfo").checked,
       search: document.querySelector(`#searchField`).value, // ng selector
       tarla: document.querySelector(`#nrTarla`).checked, // td index
       parcela: document.querySelector(`#nrParcela`).checked,
