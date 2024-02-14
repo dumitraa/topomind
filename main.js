@@ -663,16 +663,17 @@ async function searchInfo({
       for (let i = 1; i < rows.length; i++) {
         let row = rows[i];
         let cells = row.querySelectorAll("td");
+        let correctActe = addSemicolonAfterDates(cells[17].textContent);
         if (cells.length > 0) {
           foundCsv += number + ",";
-          if (tarla) foundCsv += cells[1].textContent + ",";
-          if (parcela) foundCsv += cells[6].textContent + ",";
-          if (categFol) foundCsv += cells[10].textContent + ",";
-          if (tip) foundCsv += cells[13].textContent + ",";
-          if (acte) foundCsv += cells[17].textContent + ",";
-          if (proiect) foundCsv += cells[18].textContent + ",";
-          if (imobil) foundCsv += cells[19].textContent + ",";
-          if (ie) foundCsv += cells[20].textContent + ",";
+          if (tarla) foundCsv += `"${cells[1].textContent}",`;
+          if (parcela) foundCsv += `"${cells[6].textContent}",`;
+          if (categFol) foundCsv += `"${cells[10].textContent}",`;
+          if (tip) foundCsv += `"${cells[13].textContent}",`;
+          if (acte) foundCsv += `"${correctActe}",`;
+          if (proiect) foundCsv += `"${cells[18].textContent}",`;
+          if (imobil) foundCsv += `"${cells[19].textContent.split(' / ')[0]}",`;
+          if (ie) foundCsv += `"${cells[20].textContent}",`;
           foundCsv += "\n";
           foundNumbers++;
         }
@@ -1186,6 +1187,29 @@ function updateLoadingBar(index, total) {
     loadingBar.style.width = `${percent}%`;
 
     percentageText.textContent = `${Math.round(percent)}%`;
+  }
+}
+
+function addSemicolonAfterDates(inputString) {
+  const regex = /(\d{2}\/\d{2}\/\d{4})/g;
+  const matches = inputString.match(regex);
+
+  if (matches && matches.length > 1) {
+    let lastIndex = 0;
+    let result = "";
+
+    matches.slice(0, -1).forEach((match) => {
+      const currentIndex = inputString.indexOf(match, lastIndex);
+      const nextIndex = currentIndex + match.length;
+      result += inputString.substring(lastIndex, nextIndex) + "; ";
+      lastIndex = nextIndex;
+    });
+
+    result += inputString.substring(lastIndex);
+
+    return result;
+  } else {
+    return inputString;
   }
 }
 
