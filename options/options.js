@@ -413,7 +413,6 @@ function refreshStorage() {
   chrome.storage.local.get(["mainOptions"]).then((result) => {
     if (result.mainOptions) {
       try {
-        console.log("Retrieved mainOptions from storage:", result.mainOptions);
         const searchMatchingInputs = function (option) {
           let foundIdEl = false;
           document
@@ -429,7 +428,6 @@ function refreshStorage() {
           return foundIdEl;
         };
         const parsedData = JSON.parse(result.mainOptions);
-        console.log("Parsed mainOptions:", parsedData);
         parsedData.forEach(function (option) {
           let foundIdEl = searchMatchingInputs(option);
           if (!foundIdEl) {
@@ -437,11 +435,9 @@ function refreshStorage() {
             if (el) {
               el[el.type === "checkbox" ? "checked" : "value"] = option.value;
             } else {
-              console.log(option, option.key);
               let existingContainer = document.querySelectorAll(
                 "#" + option.key.replace(/\d+$/, "")
               );
-              console.log("Existing container:", existingContainer);
               if (existingContainer && existingContainer[0]) {
                 let event = new CustomEvent("click", {
                   detail: { suppressErrors: true },
@@ -462,21 +458,21 @@ function refreshStorage() {
   });
 }
 
-function createSearchInfoObj(row, rowIndex) {
-  const elem = row.querySelector(`#searchInfo`);
+function createSearchInfoObj() {
+  const elem = document.querySelector(`#searchInfoRow`);
 
   if (elem) {
     const values = {
-      search: row.querySelector(`#searchField`).value, // ng selector
-      tarla: row.querySelector(`#nrTarla`).checked, // td index
-      parcela: row.querySelector(`#nrParcela`).checked,
-      categFol: row.querySelector(`#categFol`).checked,
-      tip: row.querySelector(`#tipTeren`).checked,
-      acte: row.querySelector(`#acte`).checked,
-      proiect: row.querySelector(`#proiect`).checked,
-      imobil: row.querySelector(`#imobilID`).checked,
-      ie: row.querySelector(`#idElectronic`).checked,
-      info: row.querySelector(`#info`).value, // INFO SEPARATED BY SPACE
+      search: document.querySelector(`#searchField`).value, // ng selector
+      tarla: document.querySelector(`#nrTarla`).checked, // td index
+      parcela: document.querySelector(`#nrParcela`).checked,
+      categFol: document.querySelector(`#categFol`).checked,
+      tip: document.querySelector(`#tipTeren`).checked,
+      acte: document.querySelector(`#acte`).checked,
+      proiect: document.querySelector(`#proiect`).checked,
+      imobil: document.querySelector(`#imobilID`).checked,
+      ie: document.querySelector(`#idElectronic`).checked,
+      info: document.querySelector(`#info`).value, // INFO SEPARATED BY SPACE
     };
 
     const allEmpty = !Object.values(values).some((value) => {
@@ -604,10 +600,8 @@ function createZonaImprObj(row, rowIndex) {
 }
 
 function createWriteValuesObj(row, rowIndex) {
-  console.log("createwritevalueobj called with rowindex", rowIndex)
   const idSuffix = rowIndex === 0 ? "" : rowIndex;
   const elem = row.querySelector(`#writeField${idSuffix}`);
-  console.log("createWriteValuesObj -> elem", elem);
 
   if (elem) {
     const values = {
@@ -615,14 +609,12 @@ function createWriteValuesObj(row, rowIndex) {
       field: row.querySelector(`#writeSelect${idSuffix}`).value,
       text: row.querySelector(`#desiredText${idSuffix}`).value,
     };
-    console.log("createWriteValuesObj -> values", values);
 
     const allEmpty = !Object.values(values).some((value) => {
       return typeof value === "boolean" ? value : value && value.trim() !== "";
     });
 
     if (!allEmpty) {
-      console.log("createWriteValuesObj -> values", values)
       return values;
     }
 
@@ -631,10 +623,8 @@ function createWriteValuesObj(row, rowIndex) {
 }
 
 function createReplaceValuesObj(row, rowIndex) {
-  console.log("createReplaceValuesObj called with rowindex", rowIndex)
   const idSuffix = rowIndex === 0 ? "" : rowIndex;
   const elem = row.querySelector(`#replaceField${idSuffix}`);
-  console.log("createReplaceValuesObj -> elem", elem);
 
   if (elem) {
     const values = {
@@ -643,14 +633,12 @@ function createReplaceValuesObj(row, rowIndex) {
       initialText: row.querySelector(`#initialT${idSuffix}`).value,
       correctedText: row.querySelector(`#actualT${idSuffix}`).value,
     };
-    console.log("createReplaceValuesObj -> values", values);
 
     const allEmpty = !Object.values(values).some((value) => {
       return typeof value === "boolean" ? value : value && value.trim() !== "";
     });
 
     if (!allEmpty) {
-      console.log("createReplaceValuesObj -> values", values);
       return values;
     }
 
@@ -679,13 +667,11 @@ function saveStorage() {
               key: el.getAttribute("id"),
               value: value,
             });
-            console.log("saved from id directly", storageArray);
           } else {
             storageArray.push({
               key: createXPathFromElement(el),
               value: value,
             });
-            console.log("saved from xpath", storageArray);
           }
         }
       });
@@ -693,9 +679,8 @@ function saveStorage() {
 
     const rows = document.querySelectorAll(".custom-row");
 
-    const searchInfoRows = Array.from(rows).filter(
-      (row) => row.querySelectorAll('[id^="searchInfo"]').length > 0
-    );
+    const searchInfoRow = document.querySelector('[id="searchInfoRow"]')
+    console.log("searchInfoRow", searchInfoRow);
     const autoInscriereRows = Array.from(rows).filter(
       (row) => row.querySelectorAll('[id^="ins"]').length > 0
     );
@@ -711,15 +696,12 @@ function saveStorage() {
     const writeValuesRows = Array.from(rows).filter(
       (row) => row.querySelectorAll('[id^="writeField"]').length > 0
     );
-    console.log("writeValuesRows", writeValuesRows);
     const replaceValuesRows = Array.from(rows).filter(
       (row) => row.querySelectorAll('[id^="replaceField"]').length > 0
     );
-    console.log("replaceValuesRows", replaceValuesRows);
 
-    const searchInfoData = searchInfoRows
-      .map((row, index) => createSearchInfoObj(row, index))
-      .filter((obj) => obj !== null);
+    const searchInfoData = searchInfoRow ? [createSearchInfoObj()].filter(obj => obj !== null) : [];
+    console.log("searchInfoData", searchInfoData);
     const autoInscriereData = autoInscriereRows
       .map((row, index) => createAutoInscriereObj(row, index))
       .filter((obj) => obj !== null);
@@ -752,8 +734,6 @@ function saveStorage() {
         replaceValuesData: JSON.stringify(replaceValuesData),
       })
       .then(() => {
-        console.log("Saved to storage: writeValuesData", writeValuesData);
-        console.log("Saved to storage: replaceValuesData", replaceValuesData);
         resolve();
       })
       .catch((error) => {
