@@ -5,20 +5,16 @@
 //////////////////////////////////////////////////////////
 
 function getData(data) {
-  console.log("getData called with:", data);
   return new Promise((resolve, reject) => {
     chrome.storage.local.get([data], (result) => {
       console.log("getData result for", data, "is", result);
       if (chrome.runtime.lastError) {
-        console.log("Runtime Error:", chrome.runtime.lastError);
         return reject(chrome.runtime.lastError);
       }
       if (result[data]) {
-        console.log("getData result for", data, "is", result[data]);
         const parsedData = JSON.parse(result[data]);
         return resolve(parsedData);
       }
-      console.log("getData result for", data, "is null");
       return resolve(null);
     });
   });
@@ -544,35 +540,23 @@ async function searchInfo({
   info,
   index = 0,
 } = {}) {
-  console.log("searchInfo called with:", {
-    search,
-    tarla,
-    parcela,
-    categFol,
-    tip,
-    acte,
-    proiect,
-    imobil,
-    ie,
-    info,
-    index,
-  });
 
   let searchField = search ? document.querySelector(search) : null;
 
   if (index >= info.length) {
-    // CREATE MODAL TO DOWNLOAD CSV
-    // create a blob with the csv string and create a link to download it
     let foundBlob = new Blob([foundCsv], { type: "text/csv" });
     let foundCsvURL = URL.createObjectURL(foundBlob);
 
-    let notFoundBlob = new Blob([notFoundString], { type: "text/csv" });
+    let notFoundBlob = new Blob([notFoundCsv], { type: "text/csv" });
     let notFoundCsvURL = URL.createObjectURL(notFoundBlob);
+
+    let gasiteFileName = "gasite.csv";
+    let negasiteFileName = "negasite.csv";
 
     document.body.insertAdjacentHTML(
       "beforeend",
       `
-          <<!-- <div class="modal fade" id="ModalCenter" tabindex="1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true"> -->
+          <div class="modal fade" id="ModalCenter" tabindex="1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -589,7 +573,7 @@ async function searchInfo({
             <table class="table">
                 <thead>
                     <tr style="text-align: center;">
-                    <th><a href="${notFoundCsvURL}" download="negasite.csv" class="btn btn-primary">Descarcă CSV</a></th>
+                    <th><a href="${notFoundCsvURL}" download="${negasiteFileName}" class="btn btn-primary">Descarcă CSV</a></th>
                     </tr>
                 </thead>
                 <tbody id="notFoundList"></tbody>
@@ -601,7 +585,7 @@ async function searchInfo({
             <table class="table">
                 <thead>
                     <tr style="text-align: center;">
-                    <th><a href="${foundCsvURL}" download="gasite.csv" class="btn btn-primary">Descarcă CSV</a></th>
+                    <th><a href="${foundCsvURL}" download="${gasiteFileName}" class="btn btn-primary">Descarcă CSV</a></th>
                     </tr>
                 </thead>
                 <tbody id="foundList"></tbody>
@@ -619,10 +603,13 @@ async function searchInfo({
     );
 
     $("#ModalCenter").modal("show");
-    let notFoundCsv = "";
-    let foundCsv = "";
-    let foundNumbers = 0;
-    let notFoundNumbers = 0;
+
+    notFoundCsv = "";
+    foundCsv = "";
+    foundNumbers = 0;
+    notFoundNumbers = 0;
+
+    return;
   }
 
   let number = info[index];
@@ -638,10 +625,10 @@ async function searchInfo({
     let currentRowCount = document.querySelectorAll("tr").length;
 
     if (currentRowCount <= 1) {
-      if (!notFoundCreated && notFoundCsv === "") {
-        notFoundCsv += "Informația negăsită";
+      if (notFoundCsv === "") {
+        notFoundCsv += "Informatie negasita" + "\n";
       }
-      notFoundCsv += " " + info[index];
+      notFoundCsv += info[index] + "\n";
       notFoundNumbers++;
     }
 
@@ -657,13 +644,12 @@ async function searchInfo({
       imobil ||
       ie
     ) {
-      console.log("Processing data for", number);
       // check if csv exists, if not, create it
-      if (!csvCreated && foundCsv === "") {
-        foundCsv += "Informația căutată, ";
+      if (foundCsv === "") {
+        foundCsv += "Informatie cautata, ";
         if (tarla) foundCsv += "Tarla,";
         if (parcela) foundCsv += "Parcela,";
-        if (categFol) foundCsv += "Categorie de Folosință,";
+        if (categFol) foundCsv += "Categorie de Folosinta,";
         if (tip) foundCsv += "Tip teren,";
         if (acte) foundCsv += "Acte,";
         if (proiect) foundCsv += "Nume proiect,";
@@ -676,6 +662,7 @@ async function searchInfo({
         let row = rows[i];
         let cells = row.querySelectorAll("td");
         if (cells.length > 0) {
+          foundCsv += number + ",";
           if (tarla) foundCsv += cells[1].textContent + ",";
           if (parcela) foundCsv += cells[6].textContent + ",";
           if (categFol) foundCsv += cells[10].textContent + ",";
@@ -1093,10 +1080,8 @@ function replaceValues(field, initialText, correctedText) {
 async function runSearchInfo() {
   try {
     const searchInfoData = await getSearchInfoData();
-    console.log(searchInfoData);
     if (searchInfoData) {
       const validData = searchInfoData.filter(data => data !== null && data.searchChecker);
-      console.log(validData);
       validData.forEach(data => {
         searchInfo({
           search: data.search,
@@ -1111,7 +1096,6 @@ async function runSearchInfo() {
           info: data.info.split(" ").map((x) => x.trim()),
           index: 0,
         });
-        console.log('Keys pressed and searchInfo function called');
       });
     }
   } catch (err) {
@@ -1154,12 +1138,10 @@ function shortcut(
           findNc &&
           searchInfoCheck
         ) {
-          console.log("ALT + C pressed");
           event.stopPropagation();
           event.preventDefault();
 
           runSearchInfo();
-          console.log("runSearchInfo function called");
         }
       }
     }
@@ -1325,14 +1307,10 @@ async function waitForElementVisible(selector, timeout = 30000) {
   const startTime = new Date().getTime();
   while (new Date().getTime() - startTime < timeout) {
     if (isVisible(selector)) {
-      console.log(`Element ${selector} is now visible.`);
       return true; // Element is visible
     }
     await sleep(100); // Wait for 100ms before checking again
   }
-  console.log(
-    `Element ${selector} did not become visible within ${timeout} ms.`
-  );
   return false; // Timeout reached, element not visible
 }
 
@@ -1340,12 +1318,10 @@ async function waitForElementNotVisible(selector, timeout = 30000) {
   const startTime = new Date().getTime();
   while (new Date().getTime() - startTime < timeout) {
     if (!isVisible(selector)) {
-      console.log(`Element ${selector} is no longer visible.`);
       return true; // Element is not visible
     }
     await sleep(100); // Wait for 100ms before checking again
   }
-  console.log(`Element ${selector} remained visible after ${timeout} ms.`);
   return false; // Timeout reached, element still visible
 }
 
