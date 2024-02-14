@@ -171,16 +171,14 @@
                     <div class="project-container" data-row-type="multi">
                       <div class="custom-row column" id="searchInfoRow">
                         <select id="searchField">
-
-                          <!-- IN PROGRESS -->
-                          <option value="" selected required disabled>Câmpul în care se vor căuta informațiile</option>
+                          <option value="" selected="true" disabled="true">Câmpul în care se vor căuta informațiile</option>
                           <option value="[ng-model='scopeRef.d22.val']">Nr. Parcelă</option>
                           <option value="[ng-model='scopeRef.d19.val']">Nr. carte</option>
                           <option value="[ng-disabled='scopeRef.d66.ro']">Imobil (ID)</option>
                           <option value="[ng-model='scopeRef.d72.val']">Id. electronic</option>
                         </select>
                         <div id="checkboxGrid">
-                          <p style="margin: 2%;">Ce informații vor fi salvate în tabel (în afară de informația căutată)</p>
+                          <strong><p style="margin-bottom: 2%;">Ce informații vor fi salvate în tabel (în afară de informația căutată)</p></strong>
                           <div class="checkbox-label checkGrid">
 
                             <!-- VALUE = THE INDEX OF THE TD IN THE ROW -->

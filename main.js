@@ -7,7 +7,6 @@
 function getData(data) {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get([data], (result) => {
-      console.log("getData result for", data, "is", result);
       if (chrome.runtime.lastError) {
         return reject(chrome.runtime.lastError);
       }
@@ -15,7 +14,6 @@ function getData(data) {
         const parsedData = JSON.parse(result[data]);
         return resolve(parsedData);
       }
-      console.log("getData result for", data, "is null");
       return resolve(null);
     });
   });
@@ -542,6 +540,8 @@ async function searchInfo({
   index = 0,
 } = {}) {
 
+  let isParcelaField = search === "[ng-model='scopeRef.d22.val']" ? true : false;
+
   let searchField = search ? document.querySelector(search) : null;
 
   if (index >= info.length) {
@@ -664,7 +664,9 @@ async function searchInfo({
         let row = rows[i];
         let cells = row.querySelectorAll("td");
         let correctActe = addSemicolonAfterDates(cells[17].textContent);
-        if (cells.length > 0) {
+        if (cells.length > 0 && isParcelaField && cells[6].textContent.trim() !== number) {
+          continue;
+        } else if (cells.length > 0) {
           foundCsv += number + ",";
           if (tarla) foundCsv += `"${cells[1].textContent}",`;
           if (parcela) foundCsv += `"${cells[6].textContent}",`;
