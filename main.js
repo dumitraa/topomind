@@ -24,8 +24,20 @@ function getSearchInfoData() {
 }
 
 function getAutoInscriereData() {
-  return getData("autoInscriereData ");
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(['autoInscriereData'], (result) => {
+      if(chrome.runtime.lastError){
+        return reject(chrome.runtime.lastError);
+      }
+      if(result.autoInscriereData) {
+        const parsedData = JSON.parse(result.autoInscriereData);
+        return resolve(parsedData);
+      }
+      return resolve(null);
+    });
+  });
 }
+
 
 function getAdresaData() {
   return getData("adresaData");
@@ -836,8 +848,12 @@ async function autoInscriere({
   comentarii = null,
   note = null,
 } = {}) {
+  console.log("autoinscriere called with arguments:", arguments);
   let act = actVal ? document.querySelector(`option[label="${actVal}"]`) : null;
   let actDrop = document.querySelector('[ng-model="scopeRef.d20.val"]');
+
+  console.log("act:", act);
+  console.log("actDrop:", actDrop);
 
   let checkbox = '[ng-model="scopeRef.d16.val"]';
 
