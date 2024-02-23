@@ -848,12 +848,8 @@ async function autoInscriere({
   comentarii = null,
   note = null,
 } = {}) {
-  console.log("autoinscriere called with arguments:", arguments);
   let act = actVal ? document.querySelector(`option[label="${actVal}"]`) : null;
   let actDrop = document.querySelector('[ng-model="scopeRef.d20.val"]');
-
-  console.log("act:", act);
-  console.log("actDrop:", actDrop);
 
   let checkbox = '[ng-model="scopeRef.d16.val"]';
 
