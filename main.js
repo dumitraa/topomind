@@ -24,18 +24,7 @@ function getSearchInfoData() {
 }
 
 function getAutoInscriereData() {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(['autoInscriereData'], (result) => {
-      if(chrome.runtime.lastError){
-        return reject(chrome.runtime.lastError);
-      }
-      if(result.autoInscriereData) {
-        const parsedData = JSON.parse(result.autoInscriereData);
-        return resolve(parsedData);
-      }
-      return resolve(null);
-    });
-  });
+  return getData("autoInscriereData")
 }
 
 
