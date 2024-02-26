@@ -706,24 +706,19 @@ async function searchInfo({
 }
 
 function addRowClickListener(row) {
-  const checkbox = row.querySelector('td input[type="checkbox"]');
-  if (checkbox) {
-    row.style.cursor = "pointer";
-  }
-
   row.addEventListener("click", function (e) {
-    if (e.target.tagName !== "BUTTON" || e.target.tagName !== "A" || e.target.tagName !== "INPUT") {
-      if (e.target.type !== "checkbox") {
-        const checkbox = this.querySelector('td input[type="checkbox"]');
-        if (checkbox) {
-          checkbox.checked = !checkbox.checked;
-          const event = new Event("change");
-          checkbox.dispatchEvent(event);
-        }
+    // Check if the clicked target is not a button, checkbox, or an anchor link
+    if (e.target.tagName !== "BUTTON" && e.target.type !== "checkbox" && e.target.tagName !== "A" && e.target.tagName !== "INPUT" && e.target.tagName !== "SELECT") {
+      const checkbox = this.querySelector('td input[type="checkbox"]');
+      if (checkbox) {
+        checkbox.checked = !checkbox.checked;
+        const event = new Event("change");
+        checkbox.dispatchEvent(event);
       }
     }
   });
 }
+
 
 function selectRow() {
   document.querySelectorAll("tr").forEach((row) => {
