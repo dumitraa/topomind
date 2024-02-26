@@ -706,15 +706,28 @@ async function searchInfo({
 }
 
 function addRowClickListener(row) {
+  const checkbox = row.querySelector('td input[type="checkbox"]');
+  if (checkbox) {
+    row.style.cursor = "pointer";
+  }
+
   row.addEventListener("click", function (e) {
-    // Check if the clicked target is not a button, checkbox, or an anchor link
-    if (e.target.tagName !== "BUTTON" && e.target.type !== "checkbox" && e.target.tagName !== "A" && e.target.tagName !== "INPUT" && e.target.tagName !== "SELECT") {
-      const checkbox = this.querySelector('td input[type="checkbox"]');
-      if (checkbox) {
-        checkbox.checked = !checkbox.checked;
-        const event = new Event("change");
-        checkbox.dispatchEvent(event);
+    // Enhanced check to see if the click is inside an excluded element
+    let targetElement = e.target;
+    do {
+      if (targetElement.tagName === "BUTTON" || targetElement.type === "checkbox" || targetElement.tagName === "A" || targetElement.tagName === "INPUT" || targetElement.tagName === "SELECT") {
+        return; // Exit without toggling the checkbox
       }
+      // Move up the DOM tree
+      targetElement = targetElement.parentNode;
+    } while (targetElement && targetElement !== this); // Stop when reaching the clicked row
+
+    // Toggle the checkbox only if the click wasn't on an excluded element
+    const checkbox = this.querySelector('td input[type="checkbox"]');
+    if (checkbox) {
+      checkbox.checked = !checkbox.checked;
+      const event = new Event("change");
+      checkbox.dispatchEvent(event);
     }
   });
 }
