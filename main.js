@@ -723,7 +723,7 @@ function addRowClickListener(row) {
   }
 
   row.addEventListener("click", function (e) {
-    if (e.target.tagName !== "BUTTON") {
+    if (e.target.tagName !== "BUTTON" || e.target.tagName !== "A" || e.target.tagName !== "INPUT") {
       if (e.target.type !== "checkbox") {
         const checkbox = this.querySelector('td input[type="checkbox"]');
         if (checkbox) {
