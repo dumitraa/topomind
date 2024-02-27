@@ -137,7 +137,7 @@ select option[disabled] {
     margin-top: 15px;
 }
 
-.error, .error.feedback, .error.project, .error.save {
+.error, .error.feedback, .error.project, .error.save, .warning.feedback {
   display: none;
   font-size: 14px;       
   color: red;         

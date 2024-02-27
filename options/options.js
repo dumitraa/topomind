@@ -72,12 +72,12 @@ function sendFeedback(feedback) {
     contact: feedback.contact,
   };
 
-  emailjs.send("service_r0gwk7m", "template_s0wy6wj", templateParams).then(
+  emailjs.send("service_3ycs6di", "template_s0wy6wj", templateParams).then(
     function (response) {
       document.querySelector(".thankYou").style.display = "block";
     },
     function (error) {
-      document.querySelector(".error.feedback").style.display = "block";
+      document.querySelector(".warning.feedback").style.display = "block";
     }
   );
 }
