@@ -460,7 +460,7 @@ async function copyNcIe() {
     await fillField(ie, substring, false);
 
     if (saveBtn) {
-      ie.focus();
+      ie.dispatchEvent(new Event('focus', { bubbles: true }));;
     }
   }
 }
@@ -489,7 +489,7 @@ async function writeQuota() {
       quota.selected = true;
       var event = new Event("change");
       dropdown.dispatchEvent(event);
-      dropdown.focus();
+      dropdown.dispatchEvent(new Event('focus', { bubbles: true }));;
 
       await fillField(initialQuota, "1/1", false);
       await fillField(actualQuota, "1/1", false);
@@ -637,16 +637,6 @@ async function searchInfo({
 
     let rows = document.querySelectorAll("tr");
     // check if arguments are true, if yes, create a string csv with the appropriate headers
-    if (
-      tarla ||
-      parcela ||
-      categFol ||
-      tip ||
-      acte ||
-      proiect ||
-      imobil ||
-      ie
-    ) {
       // check if csv exists, if not, create it
       if (foundCsv === "") {
         foundCsv += "Informatie cautata, ";
@@ -681,7 +671,6 @@ async function searchInfo({
           foundNumbers++;
         }
       }
-    }
   } else {
     console.log(
       `Skipping data processing for ${number} due to visibility issues.`
@@ -906,17 +895,17 @@ async function autoInscriere({
 
     if (detaliiDr && detailsDr.value === "") {
       await fillField(detailsDr, detaliiDr, false);
-      detailsDr.focus();
+      detailsDr.dispatchEvent(new Event('focus', { bubbles: true }));;
     }
 
     if (comentarii && comments.value === "") {
       await fillField(comments, comentarii, false);
-      comments.focus();
+      comments.dispatchEvent(new Event('focus', { bubbles: true }));;
     }
 
     if (note && notes.value === "") {
       await fillField(notes, note, false);
-      note.focus();
+      notes.dispatchEvent(new Event('focus', { bubbles: true }));;
     }
 
     if (poz && pozitie.value === "") {
@@ -928,7 +917,7 @@ async function autoInscriere({
       }
       let pozVal = (parseInt(goodPoz, 10) + 1).toString();
       await fillField(pozitie, pozVal, false);
-      pozitie.focus();
+      pozitie.dispatchEvent(new Event('focus', { bubbles: true }));;
     }
 
     try {
@@ -1242,7 +1231,7 @@ function shortcut(
       var button = document.querySelector(query);
       if (button) {
         if (action === "focus") {
-          button.focus();
+          button.dispatchEvent(new Event('focus', { bubbles: true }));;
         }
         button.click();
 
@@ -1287,7 +1276,7 @@ function selectOption(element, dropdown) {
     element.selected = true;
     const event = new Event("change");
     dropdown.dispatchEvent(event);
-    dropdown.focus();
+    dropdown.dispatchEvent(new Event('focus', { bubbles: true }));;
   }
 }
 
@@ -1357,13 +1346,13 @@ function checkIfHc() {
 
 function copyValue(a, b) {
   fillField(a, b.value, false);
-  a.focus();
+  a.dispatchEvent(new Event('focus', { bubbles: true }));;
 }
 
 function fillField(element, value, select) {
   return new Promise((resolve, reject) => {
     if (element) {
-      element.focus();
+      element.dispatchEvent(new Event('focus', { bubbles: true }));;
       if (!select && element.value.length == 0) {
         simulateTyping(element, value, 0, resolve);
       } else if (!select && element.value === "0") {
@@ -1376,8 +1365,8 @@ function fillField(element, value, select) {
         resolve();
       }
     }
-    element.blur();
-    element.focus();
+    element.dispatchEvent(new Event('blur', { bubbles: true }));;
+    element.dispatchEvent(new Event('focus', { bubbles: true }));;
   });
 }
 
