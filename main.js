@@ -398,7 +398,7 @@ const searchInfoCheck = async () => {
 };
 
 if (searchInfoCheck) {
-  shortcut(67, true, false, '[ng-model="scopeRef.d75.val"]', "focus", true);
+  shortcut(67, true, false, '[ng-model="scopeRef.d73.val"]', "focus", true);
 }
 
 function writeEtaj() {
@@ -460,7 +460,7 @@ async function copyNcIe() {
     await fillField(ie, substring, false);
 
     if (saveBtn) {
-      ie.dispatchEvent(new Event('focus', { bubbles: true }));;
+      ie.focus();
     }
   }
 }
@@ -489,7 +489,7 @@ async function writeQuota() {
       quota.selected = true;
       var event = new Event("change");
       dropdown.dispatchEvent(event);
-      dropdown.dispatchEvent(new Event('focus', { bubbles: true }));;
+      dropdown.focus();
 
       await fillField(initialQuota, "1/1", false);
       await fillField(actualQuota, "1/1", false);
@@ -654,22 +654,22 @@ async function searchInfo({
       for (let i = 1; i < rows.length; i++) {
         let row = rows[i];
         let cells = row.querySelectorAll("td");
-        let correctActe = addSemicolonAfterDates(cells[17].textContent);
-        if (cells.length > 0 && isParcelaField && cells[6].textContent.trim() !== number) {
+        let correctActe = addSemicolonAfterDates(cells[18].textContent);
+        if (cells.length > 0 && isParcelaField && cells[7].textContent.trim() !== number) {
           continue;
         } else if (cells.length > 0) {
           foundCsv += number + ",";
           if (tarla) foundCsv += `"${cells[1].textContent}",`;
-          if (parcela) foundCsv += `"${cells[6].textContent}",`;
-          if (categFol) foundCsv += `"${cells[10].textContent}",`;
-          if (tip) foundCsv += `"${cells[13].textContent}",`;
+          if (parcela) foundCsv += `"${cells[7].textContent}",`;
+          if (categFol) foundCsv += `"${cells[11].textContent}",`;
+          if (tip) foundCsv += `"${cells[14].textContent}",`;
           if (acte) foundCsv += `"${correctActe}",`;
-          if (proiect) foundCsv += `"${cells[18].textContent}",`;
-          if (imobil) foundCsv += `"${cells[19].textContent.split(' / ')[0]}",`;
-          if (ie) foundCsv += `"${cells[20].textContent}",`;
+          if (proiect) foundCsv += `"${cells[19].textContent}",`;
+          if (imobil) foundCsv += `"${cells[20].textContent.split(' / ')[0]}",`;
+          if (ie) foundCsv += `"${cells[21].textContent}",`;
           foundCsv += "\n";
           foundNumbers++;
-        }
+        } 
       }
   } else {
     console.log(
@@ -895,17 +895,17 @@ async function autoInscriere({
 
     if (detaliiDr && detailsDr.value === "") {
       await fillField(detailsDr, detaliiDr, false);
-      detailsDr.dispatchEvent(new Event('focus', { bubbles: true }));;
+      detailsDr.focus();
     }
 
     if (comentarii && comments.value === "") {
       await fillField(comments, comentarii, false);
-      comments.dispatchEvent(new Event('focus', { bubbles: true }));;
+      comments.focus();
     }
 
     if (note && notes.value === "") {
       await fillField(notes, note, false);
-      notes.dispatchEvent(new Event('focus', { bubbles: true }));;
+      notes.focus();
     }
 
     if (poz && pozitie.value === "") {
@@ -917,7 +917,7 @@ async function autoInscriere({
       }
       let pozVal = (parseInt(goodPoz, 10) + 1).toString();
       await fillField(pozitie, pozVal, false);
-      pozitie.dispatchEvent(new Event('focus', { bubbles: true }));;
+      pozitie.focus();
     }
 
     try {
@@ -1231,7 +1231,7 @@ function shortcut(
       var button = document.querySelector(query);
       if (button) {
         if (action === "focus") {
-          button.dispatchEvent(new Event('focus', { bubbles: true }));;
+          button.focus();
         }
         button.click();
 
@@ -1276,7 +1276,7 @@ function selectOption(element, dropdown) {
     element.selected = true;
     const event = new Event("change");
     dropdown.dispatchEvent(event);
-    dropdown.dispatchEvent(new Event('focus', { bubbles: true }));;
+    dropdown.focus();
   }
 }
 
@@ -1346,13 +1346,13 @@ function checkIfHc() {
 
 function copyValue(a, b) {
   fillField(a, b.value, false);
-  a.dispatchEvent(new Event('focus', { bubbles: true }));;
+  a.focus();
 }
 
 function fillField(element, value, select) {
   return new Promise((resolve, reject) => {
     if (element) {
-      element.dispatchEvent(new Event('focus', { bubbles: true }));;
+      element.focus();
       if (!select && element.value.length == 0) {
         simulateTyping(element, value, 0, resolve);
       } else if (!select && element.value === "0") {
@@ -1366,7 +1366,7 @@ function fillField(element, value, select) {
       }
     }
     element.dispatchEvent(new Event('blur', { bubbles: true }));;
-    element.dispatchEvent(new Event('focus', { bubbles: true }));;
+    element.focus();
   });
 }
 
